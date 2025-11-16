@@ -1,0 +1,412 @@
+/* CSS Variables */
+:root {
+  --anc-era-gold: #d4af37;
+  --anc-era-gold-light: #e6c566;
+  --anc-era-gold-dark: #aa8c2c;
+  --anc-era-sand: #e6d2b5;
+  --anc-era-sand-light: #f4ece0;
+  --anc-era-sand-dark: #c9b697;
+  --anc-era-black: #1a1a1a;
+  --anc-era-black-light: #333333;
+  --anc-era-white: #ffffff;
+}
+
+/* Reset and Base Styles */
+.anc-era-container * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.anc-era-container {
+  font-family: 'Georgia', serif;
+  line-height: 1.7;
+  color: var(--anc-era-black);
+  background: linear-gradient(135deg, var(--anc-era-sand-light) 0%, var(--anc-era-sand) 100%);
+  overflow-x: hidden;
+}
+
+.anc-era-container-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header */
+.anc-era-header {
+  background: linear-gradient(135deg, var(--anc-era-gold-dark) 0%, var(--anc-era-gold) 50%, var(--anc-era-gold-light) 100%);
+  color: var(--anc-era-white);
+  padding: 80px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin-top: 80px;
+}
+
+.anc-era-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="lines" patternUnits="userSpaceOnUse" width="100" height="100"><path d="M0,50 Q25,25 50,50 T100,50" stroke="rgba(255,255,255,0.1)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23lines)"/></svg>') repeat;
+  animation: anc-era-float 20s infinite linear;
+}
+
+@keyframes anc-era-float {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100px); }
+}
+
+.anc-era-header h1 {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  position: relative;
+  z-index: 1;
+}
+
+.anc-era-header p {
+  font-size: 1.3rem;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  opacity: 0.95;
+}
+
+/* Navigation */
+.anc-era-nav {
+  background: var(--anc-era-black);
+  padding: 1rem 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.anc-era-nav-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.anc-era-nav-links a {
+  color: var(--anc-era-white);
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  background: rgba(255,255,255,0.1);
+}
+
+.anc-era-nav-links a:hover {
+  background: var(--anc-era-gold-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Main Sections */
+.anc-era-section {
+  margin: 50px 0;
+  padding: 40px 0;
+}
+
+.anc-era-h2 {
+  font-size: 2.8rem;
+  color: var(--anc-era-gold-dark);
+  text-align: center;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.anc-era-h2::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--anc-era-gold-dark), var(--anc-era-gold), var(--anc-era-gold-light));
+  border-radius: 2px;
+}
+
+.anc-era-h3 {
+  font-size: 1.8rem;
+  color: var(--anc-era-gold-dark);
+  margin: 30px 0 20px;
+}
+
+.anc-era-p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  text-align: justify;
+  line-height: 1.8;
+}
+
+/* Introduction Section */
+.anc-era-introduction {
+  background: var(--anc-era-white);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  position: relative;
+  padding: 40px;
+  overflow: hidden;
+}
+
+.anc-era-introduction::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, var(--anc-era-gold-light), transparent 70%);
+  opacity: 0.3;
+  animation: anc-era-pulse 4s infinite;
+}
+
+@keyframes anc-era-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.1); opacity: 0.1; }
+}
+
+/* Stages Grid */
+.anc-era-stages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 40px;
+  margin-top: 50px;
+}
+
+.anc-era-stage-card {
+  background: var(--anc-era-white);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.anc-era-stage-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+}
+
+.anc-era-stage-image {
+  width: 100%;
+  height: 250px;
+  background: linear-gradient(135deg, var(--anc-era-sand), var(--anc-era-sand-dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  color: var(--anc-era-gold);
+  position: relative;
+  overflow: hidden;
+}
+
+.anc-era-stage-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(212,175,55,0.2)"/></svg>') repeat;
+  animation: anc-era-sparkle 3s infinite;
+}
+
+@keyframes anc-era-sparkle {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+.anc-era-stage-content {
+  padding: 30px;
+}
+
+.anc-era-stage-period {
+  color: var(--anc-era-gold-dark);
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.anc-era-stage-title {
+  font-size: 1.5rem;
+  color: var(--anc-era-black);
+  margin-bottom: 15px;
+}
+
+/* Achievements Section */
+.anc-era-achievements {
+  background: var(--anc-era-black);
+  color: var(--anc-era-white);
+  border-radius: 20px;
+  padding: 20px;
+  margin: 10px 0;
+  position: relative;
+}
+
+.anc-era-achievements::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: 100px 100px;
+}
+
+.anc-era-achievements .anc-era-h2 {
+  color: var(--anc-era-gold);
+  position: relative;
+  z-index: 1;
+}
+
+.anc-era-achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  margin-top: 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.anc-era-achievement-item {
+  background: var(--anc-era-black-light);
+  padding: 30px;
+  border-radius: 15px;
+  border: 2px solid var(--anc-era-gold-dark);
+  transition: all 0.3s ease;
+}
+
+.anc-era-achievement-item:hover {
+  border-color: var(--anc-era-gold);
+  transform: scale(1.05);
+}
+
+.anc-era-achievement-icon {
+  font-size: 3rem;
+  color: var(--anc-era-gold);
+  margin-bottom: 20px;
+}
+
+/* Modern Relevance */
+.anc-era-modern-relevance {
+  background: linear-gradient(135deg, var(--anc-era-gold-light), var(--anc-era-gold));
+  color: var(--anc-era-black);
+  border-radius: 20px;
+  padding: 60px;
+  margin: 40px 0;
+  text-align: center;
+}
+
+.anc-era-relevance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.anc-era-relevance-item {
+  background: var(--anc-era-white);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Timeline */
+.anc-era-timeline {
+  position: relative;
+  margin: 60px 0;
+}
+
+.anc-era-timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(to bottom, var(--anc-era-gold-dark), var(--anc-era-gold), var(--anc-era-gold-light));
+  transform: translateX(-50%);
+}
+
+.anc-era-timeline-item {
+  display: flex;
+  margin: 40px 0;
+  position: relative;
+}
+
+.anc-era-timeline-item:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.anc-era-timeline-content {
+  flex: 1;
+  background: var(--anc-era-white);
+  padding: 30px;
+  border-radius: 15px;
+  margin: 0 30px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.anc-era-timeline-date {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--anc-era-gold);
+  color: var(--anc-era-white);
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+/* Footer */
+.anc-era-footer {
+  background: var(--anc-era-black);
+  color: var(--anc-era-white);
+  text-align: center;
+  padding: 40px 0;
+  margin-top: 80px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .anc-era-header h1 { font-size: 2.5rem; }
+  .anc-era-header p { font-size: 1.1rem; }
+  .anc-era-nav-links { flex-direction: column; gap: 10px; }
+  .anc-era-stages-grid { grid-template-columns: 1fr; }
+  .anc-era-timeline::before { left: 30px; }
+  .anc-era-timeline-item { flex-direction: column !important; }
+  .anc-era-timeline-content { margin: 0 0 0 60px; }
+  .anc-era-timeline-date { left: 30px; }
+  .anc-era-introduction, .anc-era-achievements, .anc-era-modern-relevance { padding: 30px; }
+}
+
+/* Scroll animations */
+@keyframes anc-era-fadeInUp {
+  from {
+      opacity: 0;
+      transform: translateY(50px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.anc-era-fade-in {
+  animation: anc-era-fadeInUp 0.8s ease-out;
+}

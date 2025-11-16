@@ -1,0 +1,2047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histovue - Journey Through Time</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --obsidian: #0f0f0f;
+            --charcoal: #1a1a1a;
+            --slate: #2a2a2a;
+            --gold-primary: #d4af37;
+            --gold-light: #f7e98e;
+            --gold-deep: #b8941f;
+            --copper: #b87333;
+            --bronze: #cd7f32;
+            --ivory: #faf0e6;
+            --parchment: #f4e4bc;
+            --shadow-deep: rgba(15, 15, 15, 0.95);
+            --shadow-soft: rgba(212, 175, 55, 0.15);
+            --gradient-gold: linear-gradient(135deg, var(--gold-deep) 0%, var(--gold-primary) 50%, var(--gold-light) 100%);
+            --gradient-obsidian: linear-gradient(135deg, var(--obsidian) 0%, var(--charcoal) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'EB Garamond', serif;
+            background: var(--obsidian);
+            color: var(--ivory);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Enhanced Ancient Overlay with Papyrus Pattern */
+        .ancient-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background-image: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(212, 175, 55, 0.02) 2px,
+                    rgba(212, 175, 55, 0.02) 4px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(212, 175, 55, 0.01) 2px,
+                    rgba(212, 175, 55, 0.01) 4px
+                ),
+                radial-gradient(2px 2px at 40px 60px, var(--shadow-soft), transparent),
+                radial-gradient(1px 1px at 90px 140px, var(--shadow-soft), transparent),
+                radial-gradient(1px 1px at 180px 90px, var(--shadow-soft), transparent);
+            background-size: 200px 200px, 150px 150px, 400px 300px, 350px 250px, 300px 200px;
+            animation: ancientParchment 60s linear infinite;
+        }
+
+        @keyframes ancientParchment {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0.6; }
+            25% { opacity: 0.8; }
+            50% { transform: translateY(-30px) translateX(20px) rotate(0.2deg); opacity: 0.7; }
+            75% { opacity: 0.9; }
+            100% { transform: translateY(-60px) translateX(40px) rotate(0.4deg); opacity: 0.6; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Majestic Hero Section with Enhanced Animations */
+        .hero {
+            height: 100vh;
+            background: 
+                radial-gradient(ellipse at 20% 30%, rgba(212, 175, 55, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 70%, rgba(205, 127, 50, 0.08) 0%, transparent 70%),
+                linear-gradient(135deg, var(--shadow-deep), rgba(42, 42, 42, 0.6), var(--obsidian)),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><pattern id="ancientMarble" patternUnits="userSpaceOnUse" width="400" height="400"><rect fill="%231a1a1a" width="400" height="400"/><circle cx="200" cy="200" r="120" fill="%23d4af37" opacity="0.04"/><rect x="100" y="100" width="200" height="200" fill="%23b87333" opacity="0.02" transform="rotate(45 200 200)"/><polygon points="50,350 350,50 370,70 70,370" fill="%23cd7f32" opacity="0.03"/></pattern></defs><rect fill="url(%23ancientMarble)" width="1200" height="800"/></svg>');
+            background-size: cover, cover, cover, 200% auto;
+            background-position: center, center, center, center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            animation: heroMarbleShift 50s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroMarbleShift {
+            0% { background-size: cover, cover, cover, 200% auto; background-position: center, center, center, -10% 10%; }
+            100% { background-size: cover, cover, cover, 220% auto; background-position: center, center, center, 10% -10%; }
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(205, 127, 50, 0.06) 0%, transparent 60%),
+                radial-gradient(circle at 50% 50%, rgba(184, 115, 51, 0.04) 0%, transparent 80%);
+            animation: auralGlow 35s ease-in-out infinite alternate;
+        }
+
+        @keyframes auralGlow {
+            0% { opacity: 0.8; filter: blur(0px); }
+            50% { opacity: 1; filter: blur(1px); }
+            100% { opacity: 0.9; filter: blur(0px); }
+        }
+
+        /* Floating Ancient Symbols */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="50" font-family="serif" font-size="30" fill="%23d4af37" opacity="0.08" text-anchor="middle" dominant-baseline="middle">⚱</text></svg>'),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="50" font-family="serif" font-size="25" fill="%23cd7f32" opacity="0.06" text-anchor="middle" dominant-baseline="middle">𓂀</text></svg>'),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="50" font-family="serif" font-size="35" fill="%23b87333" opacity="0.05" text-anchor="middle" dominant-baseline="middle">⚔</text></svg>');
+            background-size: 200px 200px, 300px 300px, 250px 250px;
+            background-position: 10% 20%, 90% 80%, 70% 10%;
+            animation: symbolFloat 40s linear infinite;
+        }
+
+        @keyframes symbolFloat {
+            0% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(90deg); }
+            50% { transform: translateY(-10px) rotate(180deg); }
+            75% { transform: translateY(-30px) rotate(270deg); }
+            100% { transform: translateY(0) rotate(360deg); }
+        }
+
+        .hero.hidden {
+            opacity: 0;
+            transform: translateY(-100%);
+            transition: all 0.7s ease;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 1000px;
+            padding: 0 2rem;
+            animation: heroContentRise 2s ease-out;
+        }
+
+        @keyframes heroContentRise {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-content h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(3.5rem, 10vw, 7rem);
+            font-weight: 700;
+            color: var(--gold-primary);
+            margin-bottom: 2rem;
+            text-shadow: 
+                0 0 40px rgba(212, 175, 55, 0.6),
+                0 8px 16px rgba(0, 0, 0, 0.8),
+                0 4px 8px rgba(0, 0, 0, 0.6),
+                0 2px 4px rgba(212, 175, 55, 0.4);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            position: relative;
+            animation: titleMajestic 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleMajestic {
+            0% { 
+                text-shadow: 0 0 30px rgba(212, 175, 55, 0.5), 0 8px 16px rgba(0, 0, 0, 0.8);
+                transform: scale(1);
+            }
+            100% { 
+                text-shadow: 0 0 60px rgba(212, 175, 55, 0.8), 0 8px 16px rgba(0, 0, 0, 0.8);
+                transform: scale(1.02);
+            }
+        }
+
+        .hero-content h1::before {
+            content: '◊';
+            position: absolute;
+            left: -60px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.4em;
+            color: var(--copper);
+            animation: ornamentPulse 3s ease-in-out infinite alternate;
+        }
+
+        .hero-content h1::after {
+            content: '◊';
+            position: absolute;
+            right: -60px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.4em;
+            color: var(--copper);
+            animation: ornamentPulse 3s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes ornamentPulse {
+            0% { opacity: 0.6; transform: translateY(-50%) scale(1); }
+            100% { opacity: 1; transform: translateY(-50%) scale(1.2); }
+        }
+
+        .hero-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.3rem, 3.5vw, 2rem);
+            color: var(--parchment);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+            font-style: italic;
+            opacity: 0.95;
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);
+            position: relative;
+            animation: subtitleGlow 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes subtitleGlow {
+            0% { opacity: 0.9; }
+            100% { opacity: 1; text-shadow: 0 3px 6px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.1); }
+        }
+
+        .hero-subtitle::before,
+        .hero-subtitle::after {
+            content: '❦';
+            position: absolute;
+            top: -20px;
+            color: var(--gold-deep);
+            font-size: 1.5rem;
+            opacity: 0.7;
+            animation: flourishDance 4s ease-in-out infinite alternate;
+        }
+
+        .hero-subtitle::before {
+            left: 0;
+        }
+
+        .hero-subtitle::after {
+            right: 0;
+            animation-delay: 2s;
+        }
+
+        @keyframes flourishDance {
+            0% { transform: rotate(-5deg) scale(1); opacity: 0.7; }
+            100% { transform: rotate(5deg) scale(1.1); opacity: 1; }
+        }
+
+        .cta-button {
+            background: var(--gradient-gold);
+            color: var(--obsidian);
+            padding: 20px 50px;
+            border: 3px solid var(--gold-primary);
+            border-radius: 50px;
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.4),
+                0 6px 15px rgba(212, 175, 55, 0.3),
+                inset 0 2px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+            animation: buttonBreath 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes buttonBreath {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-2px) scale(1.02); }
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .cta-button::after {
+            content: '⟶';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.08);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.5),
+                0 12px 25px rgba(212, 175, 55, 0.5),
+                inset 0 2px 0 rgba(255, 255, 255, 0.3);
+            border-color: var(--gold-light);
+            letter-spacing: 4px;
+            padding-right: 60px;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover::after {
+            opacity: 1;
+            transform: translateY(-50%) translateX(5px);
+        }
+
+        /* Elegant Navigation with Roman Column Design */
+        .nav {
+            background: 
+                linear-gradient(135deg, var(--charcoal) 0%, rgba(26, 26, 26, 0.98) 50%, var(--charcoal) 100%),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 40px,
+                    rgba(212, 175, 55, 0.05) 40px,
+                    rgba(212, 175, 55, 0.05) 42px
+                );
+            -webkit-backdrop-filter: blur(25px);
+            backdrop-filter: blur(25px);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--gold-primary);
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(212, 175, 55, 0.1);
+        }
+
+        .nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-gold);
+            opacity: 0.8;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3.5rem;
+            padding: 0 2rem;
+        }
+
+        .nav-item {
+            font-family: 'Cinzel', serif;
+            color: var(--copper);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            padding: 1rem 2rem;
+            border-radius: 35px;
+            text-transform: capitalize;
+            letter-spacing: 1.5px;
+            border: 1px solid transparent;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--gradient-gold);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .nav-item::after {
+            content: '◊';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: var(--gold-primary);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: var(--gold-light);
+            background: 
+                radial-gradient(ellipse at center, rgba(212, 175, 55, 0.15) 0%, transparent 70%),
+                rgba(212, 175, 55, 0.08);
+            transform: translateY(-3px);
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-item:hover::before, .nav-item.active::before {
+            width: 90%;
+        }
+
+        .nav-item:hover::after, .nav-item.active::after {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-2px);
+        }
+
+        /* Enhanced Main Content */
+        .main-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .main-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(180deg, rgba(212, 175, 55, 0.05) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 600;
+            color: var(--gold-primary);
+            text-align: center;
+            margin-bottom: 5rem;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .section-title::before,
+        .section-title::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 150px;
+            height: 2px;
+            background: var(--gradient-gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+
+        .section-title::before {
+            left: -180px;
+            transform: translateY(-50%);
+        }
+
+        .section-title::after {
+            right: -180px;
+            transform: translateY(-50%);
+        }
+
+        /* Ornamental Corners */
+        .section-title span {
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title span::before,
+        .section-title span::after {
+            content: '❦';
+            position: absolute;
+            top: -30px;
+            font-size: 1.5rem;
+            color: var(--copper);
+            opacity: 0.8;
+            animation: ornamentFloat 6s ease-in-out infinite alternate;
+        }
+
+        .section-title span::before {
+            left: -40px;
+        }
+
+        .section-title span::after {
+            right: -40px;
+            animation-delay: 3s;
+        }
+
+        @keyframes ornamentFloat {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-5px) rotate(10deg); }
+        }
+
+        /* Sophisticated Video Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+            gap: 3rem;
+            margin-bottom: 6rem;
+        }
+
+        .video-card {
+            background: 
+                var(--gradient-obsidian),
+                radial-gradient(circle at top right, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            border-radius: 25px;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            cursor: pointer;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.4),
+                0 8px 15px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(212, 175, 55, 0.1);
+        }
+
+        .video-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--gradient-gold);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+            border-radius: 25px;
+        }
+
+        .video-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.5),
+                0 20px 40px rgba(212, 175, 55, 0.2),
+                0 0 0 2px var(--gold-primary),
+                inset 0 1px 0 rgba(212, 175, 55, 0.2);
+            border-color: var(--gold-light);
+        }
+
+        .video-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 260px;
+            background: 
+                radial-gradient(circle at 30% 30%, var(--bronze) 0%, var(--copper) 40%, var(--gold-deep) 80%, var(--gold-primary) 100%),
+                linear-gradient(45deg, var(--gold-deep), var(--gold-primary), var(--gold-light));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-thumbnail::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 0%, transparent 60%),
+                linear-gradient(135deg, var(--shadow-deep) 0%, transparent 60%, rgba(212, 175, 55, 0.1) 100%);
+            transition: all 0.5s ease;
+        }
+
+        /* Thumbnail image layer */
+        .thumb-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .video-thumbnail.playing .play-button {
+            display: none;
+        }
+
+        .video-card:hover .video-thumbnail::before {
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.15) 0%, transparent 60%),
+                linear-gradient(135deg, rgba(15, 15, 15, 0.7) 0%, transparent 60%, rgba(212, 175, 55, 0.2) 100%);
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85px;
+            height: 85px;
+            background: 
+                radial-gradient(circle, rgba(15, 15, 15, 0.95) 0%, rgba(15, 15, 15, 0.9) 100%),
+                var(--gradient-gold);
+            background-blend-mode: overlay;
+            border: 4px solid var(--gold-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.5),
+                0 0 0 0 rgba(212, 175, 55, 0.4),
+                inset 0 2px 0 rgba(212, 175, 55, 0.2);
+            z-index: 2;
+            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
+        }
+
+        .play-button::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .play-button:hover {
+            transform: translate(-50%, -50%) scale(1.2);
+            background: 
+                radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, rgba(15, 15, 15, 0.9) 100%);
+            border-color: var(--gold-light);
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.6),
+                0 0 0 20px rgba(212, 175, 55, 0.1),
+                0 0 40px rgba(212, 175, 55, 0.4),
+                inset 0 2px 0 rgba(212, 175, 55, 0.3);
+            animation: playPulse 2s infinite;
+        }
+
+        .play-button:hover::before {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        @keyframes playPulse {
+            0%, 100% { box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 0 0 rgba(212, 175, 55, 0.4); }
+            50% { box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 0 30px rgba(212, 175, 55, 0); }
+        }
+
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-left: 28px solid var(--gold-primary);
+            border-top: 16px solid transparent;
+            border-bottom: 16px solid transparent;
+            margin-left: 6px;
+            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
+            transition: all 0.3s ease;
+        }
+
+        .play-button:hover .play-icon {
+            border-left-color: var(--gold-light);
+            transform: scale(1.1);
+        }
+
+        .video-info {
+            padding: 2.5rem;
+            position: relative;
+            background: 
+                linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, transparent 70%),
+                rgba(26, 26, 26, 0.8);
+        }
+
+        .video-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--gold-primary);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-description {
+            color: var(--parchment);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Crimson Text', serif;
+            font-size: 0.9rem;
+            color: var(--copper);
+            opacity: 0.8;
+        }
+
+        .duration {
+            background: rgba(212, 175, 55, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        /* Majestic Footer */
+        .footer {
+            background: 
+                linear-gradient(135deg, var(--obsidian) 0%, var(--charcoal) 50%, var(--obsidian) 100%),
+                radial-gradient(ellipse at center bottom, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+            border-top: 3px solid var(--gold-primary);
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--gradient-gold);
+            opacity: 0.6;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--parchment);
+            margin-bottom: 2rem;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .footer-ornament {
+            color: var(--gold-primary);
+            font-size: 2rem;
+            margin: 1.5rem 0;
+            animation: ornamentGlow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes ornamentGlow {
+            0% { opacity: 0.7; text-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+            100% { opacity: 1; text-shadow: 0 0 30px rgba(212, 175, 55, 0.5); }
+        }
+
+        .copyright {
+            font-family: 'Crimson Text', serif;
+            color: var(--copper);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content h1::before,
+            .hero-content h1::after {
+                display: none;
+            }
+
+            .section-title::before,
+            .section-title::after {
+                display: none;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+                gap: 1.5rem;
+                justify-content: center;
+            }
+
+            .nav-item {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 0 1rem;
+            }
+
+            .hero-content {
+                padding: 0 1rem;
+            }
+
+            .cta-button {
+                padding: 15px 35px;
+                font-size: 1rem;
+            }
+
+            .main-content {
+                padding: 4rem 1rem;
+            }
+
+            .video-card {
+                border-radius: 15px;
+            }
+
+            .video-info {
+                padding: 2rem;
+            }
+        }
+
+        /* Scroll Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        /* Uniform card sizes only when filtering */
+        .video-grid.uniform-cards {
+            align-items: stretch;
+        }
+        .video-grid.uniform-cards .video-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .video-grid.uniform-cards .video-info {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        .video-grid.uniform-cards .video-title {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.4;
+            min-height: calc(1.4em * 2);
+        }
+        .video-grid.uniform-cards .video-description {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.6;
+            min-height: calc(1.6em * 3);
+        }
+        .video-grid.uniform-cards .video-meta {
+            margin-top: auto;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .pager-button {
+            background: var(--gradient-gold);
+            color: var(--obsidian);
+            padding: 12px 28px;
+            border: 2px solid var(--gold-primary);
+            border-radius: 40px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .pager-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .pager-button:hover:enabled {
+            transform: translateY(-2px);
+            border-color: var(--gold-light);
+        }
+
+        /* Open on YouTube fallback button */
+        .open-youtube-btn {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            z-index: 3;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(15, 15, 15, 0.75);
+            color: var(--gold-light);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            padding: 8px 12px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            transition: all 0.25s ease;
+            -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(6px);
+        }
+        .open-youtube-btn:hover {
+            color: var(--gold-primary);
+            border-color: var(--gold-primary);
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Ancient Overlay -->
+    <div class="ancient-overlay"></div>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section id="hero" class="hero">
+            <div class="hero-content">
+                <h1>Histovue</h1>
+                <p class="hero-subtitle">Immerse yourself in the grand tapestry of human civilization, where every era tells its eternal story through captivating visual narratives</p>
+                <button class="cta-button" onclick="scrollToContent()">Begin Your Journey</button>
+            </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <div class="nav-container">
+                <a href="#ancient" class="nav-item active">Ancient Civilizations</a>
+                <a href="#medieval" class="nav-item">Medieval Times</a>
+                <a href="#renaissance" class="nav-item">Renaissance</a>
+                <a href="#modern" class="nav-item">Modern Era</a>
+                <a href="#contemporary" class="nav-item">Contemporary</a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content" id="content">
+            <h2 class="section-title"><span>Featured Chronicles</span></h2>
+            
+            <div class="video-grid">
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/7p7nqCR3b8o?si=_975ZQ6tvwSx-03Y">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">The Rise of Ancient Egypt</h3>
+                        <p class="video-description">Journey through the magnificent reign of the pharaohs, exploring the mysteries of pyramid construction and the secrets of the Nile's civilization.</p>
+                        <div class="video-meta">
+                            <span>Ancient Civilizations</span>
+                            <span class="duration">42:15</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/zxKPjD8urG4?si=Dx04Z3FJOGGWzIoD">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Roman Empire's Golden Age</h3>
+                        <p class="video-description">Witness the grandeur of Rome at its peak, from gladiatorial combat in the Colosseum to the engineering marvels that connected an empire.</p>
+                        <div class="video-meta">
+                            <span>Ancient Civilizations</span>
+                            <span class="duration">38:42</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/nv-y2bUOEIM?si=jOB3JjY50qf9HejY">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">The Glory of Ancient Greece</h3>
+                        <p class="video-description">Discover the birthplace of democracy, philosophy, and the Olympic Games, with a focus on Athens and Sparta.</p>
+                        <div class="video-meta">
+                            <span>Ancient Civilizations</span>
+                            <span class="duration">44:10</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/E3uuNPBcun0?si=nP_zySExMgmfQHPo">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">The Indus Valley Civilization</h3>
+                        <p class="video-description">Uncover the urban planning, trade, and culture of one of the world’s earliest civilizations along the Indus River.</p>
+                        <div class="video-meta">
+                            <span>Ancient Civilizations</span>
+                            <span class="duration">40:20</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/m68zyXyeYG0?si=xkqgPs4JEpWKXpva">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">The Great Wall of China</h3>
+                        <p class="video-description">Explore the history and construction of China’s most iconic structure, built to protect and unify the empire.</p>
+                        <div class="video-meta">
+                            <span>Ancient Civilizations</span>
+                            <span class="duration">36:55</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/d2ic7z0eurs?si=M_owX1dWvshCn7Oe">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Mesopotamia: Cradle of Civilization</h3>
+                        <p class="video-description">Dive into the world of the Sumerians, Babylonians, and Assyrians, who pioneered writing, law, and astronomy.</p>
+                        <div class="video-meta">
+                            <span>Ancient Civilizations</span>
+                            <span class="duration">41:08</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/YW0rLAX3y-c?si=RWXMZXtKmFKE08Fj">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Mayan Civilization</h3>
+                        <p class="video-description">Step into the jungles of Central America to witness the astronomy, architecture, and calendar of the Maya.</p>
+                        <div class="video-meta">
+                            <span>Ancient Civilizations</span>
+                            <span class="duration">39:12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/KWmo9r0hnM8?si=PDUlAUMvMIQKPy6y">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Aztec Empire</h3>
+                        <p class="video-description">Explore the rise and fall of the Aztec Empire, known for its warriors, temples, and encounters with Europeans.</p>
+                        <div class="video-meta">
+                            <span>Ancient Civilizations</span>
+                            <span class="duration">37:50</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/UO5ktwPXsyM?si=a-6vz-S_lXhhFkhD">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Inca Empire</h3>
+                        <p class="video-description">Journey across the Andes to see how the Incas built Machu Picchu and their vast network of roads and bridges.</p>
+                        <div class="video-meta">
+                            <span>Ancient Civilizations</span>
+                            <span class="duration">42:05</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/V4niY5Uq95k?si=LsCLofDbR83rcQ5z">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Ancient Persia</h3>
+                        <p class="video-description">From Cyrus the Great to Darius, explore the mighty Persian Empire that rivaled Greece and Rome.</p>
+                        <div class="video-meta">
+                            <span>Ancient Civilizations</span>
+                            <span class="duration">35:30</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/Xq8wUZUUT5k?si=ZO8W4912JQUgxfXg">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Celtic Tribes of Europe</h3>
+                        <p class="video-description">Discover the warriors, druids, and myths of the Celts who shaped Europe before the rise of Rome.</p>
+                        <div class="video-meta">
+                            <span>Ancient Civilizations</span>
+                            <span class="duration">34:18</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/Yp7ldDuSOLU?si=U39o1Z3ncxIt1g0_">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Vikings: Raiders and Explorers</h3>
+                        <p class="video-description">Sail with the Norsemen as they raided Europe, explored the Atlantic, and founded settlements in Greenland and beyond.</p>
+                        <div class="video-meta">
+                            <span>Ancient Civilizations</span>
+                            <span class="duration">43:22</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/WPlP4LRPfHQ?si=YiQj5H2dxa8_Uim5">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">The Great Indian Civilization</h3>
+                        <p class="video-description">Explore the roots of one of the world’s oldest civilizations, from the Indus Valley to the Gupta Empire, shaping art, science, and philosophy.</p>
+                        <div class="video-meta">
+                            <span>Medieval Times</span>
+                            <span class="duration">42:15</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/ZWcCCS8NIgU?si=bW4xSp4ogmKjUs05">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Medieval Castles & Knights</h3>
+                        <p class="video-description">Enter the age of chivalry and feudalism, exploring the architectural wonders of medieval fortresses and the code of honor that shaped an era.</p>
+                        <div class="video-meta">
+                            <span>Medieval Times</span>
+                            <span class="duration">35:28</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/yq3q7KMlvw0?si=7l6REyMg5DVLpNgQ">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Life in a Medieval Village</h3>
+                        <p class="video-description">Step inside the daily life of peasants, farmers, and craftsmen who formed the backbone of medieval society.</p>
+                        <div class="video-meta">
+                            <span>Medieval Times</span>
+                            <span class="duration">27:49</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/H2hqa3AX5kY?si=Wx5oNm8vOAA72tlW">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">The Crusades Explained</h3>
+                        <p class="video-description">Uncover the epic battles, religious motives, and cultural exchanges sparked by the Crusades of the Middle Ages.</p>
+                        <div class="video-meta">
+                            <span>Medieval Times</span>
+                            <span class="duration">49:13</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/tSdg7h60Gi4?si=WxBRH58fA4DWz7sR">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Medieval Warfare & Siege Engines</h3>
+                        <p class="video-description">Discover how castles were attacked and defended using trebuchets, battering rams, and clever tactics.</p>
+                        <div class="video-meta">
+                            <span>Medieval Times</span>
+                            <span class="duration">31:22</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/iGiZXQVGpbY?si=P934sHrXVK55gyg_">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Medieval Medicine & Plague</h3>
+                        <p class="video-description">Learn about the Black Death, medieval surgery, and strange remedies that shaped health practices of the era.</p>
+                        <div class="video-meta">
+                            <span>Medieval Times</span>
+                            <span class="duration">29:47</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/7pIDi2K8S-M?si=P6BI9HGO5JHS7q9w">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Art & Architecture of the Middle Ages</h3>
+                        <p class="video-description">A journey through Gothic cathedrals, stained glass, and illuminated manuscripts that defined medieval art.</p>
+                        <div class="video-meta">
+                            <span>Medieval Times</span>
+                            <span class="duration">33:58</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/J-pfeFbssMw?si=QqbVz0J2CQuA11H-">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Medieval Trade & Silk Road</h3>
+                        <p class="video-description">Explore how merchants, caravans, and trade routes connected Europe with Asia in the Middle Ages.</p>
+                        <div class="video-meta">
+                            <span>Medieval Times</span>
+                            <span class="duration">40:12</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/Mnws0xna2To?si=8K4KfSdt7uSOMHCU">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">The Rise of Kingdoms</h3>
+                        <p class="video-description">From England to France, learn how monarchs consolidated power and shaped the future of Europe.</p>
+                        <div class="video-meta">
+                            <span>Medieval Times</span>
+                            <span class="duration">37:01</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/UmGa8edtQPM?si=MY_i8cCmcZqtvgU0">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Medieval Religion & Monasteries</h3>
+                        <p class="video-description">Step inside monasteries, cathedrals, and the spiritual life that guided medieval culture.</p>
+                        <div class="video-meta">
+                            <span>Medieval Times</span>
+                            <span class="duration">28:34</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/oiOjIaoVPVY?si=yaHCIRkJTk9ar1Cm">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Medieval Music & Festivals</h3>
+                        <p class="video-description">Enjoy the songs, dances, and celebrations that filled the medieval calendar with joy and meaning.</p>
+                        <div class="video-meta">
+                            <span>Medieval Times</span>
+                            <span class="duration">26:55</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/v8fiSl3L6PE?si=kQI6IHD2a_yysMRQ">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">The End of the Middle Ages</h3>
+                        <p class="video-description">Witness the decline of feudalism, the Hundred Years’ War, and the dawn of the Renaissance.</p>
+                        <div class="video-meta">
+                            <span>Medieval Times</span>
+                            <span class="duration">41:06</span>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/Om1jvUzVAtE?si=bo18m_cmTqjRR12y">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">The Renaissance Explained</h3>
+                        <p class="video-description">Uncover how the Renaissance began in Florence and spread across Europe, sparking art, science, and discovery.</p>
+                        <div class="video-meta">
+                            <span>Renaissance</span>
+                            <span class="duration">48:32</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/rodlc1aHPRw?si=_fpnOxEfZhsV5u2F">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Leonardo da Vinci: Genius of the Renaissance</h3>
+                        <p class="video-description">Explore the life, inventions, and artistic masterpieces of Leonardo da Vinci, the ultimate Renaissance man.</p>
+                        <div class="video-meta">
+                            <span>Renaissance</span>
+                            <span class="duration">52:11</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/89LEYZJxB3k?si=zY0J2ZWPIm1mCJcj">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Michelangelo: The Sculptor of God</h3>
+                        <p class="video-description">Dive into the brilliance of Michelangelo’s Sistine Chapel, David, and his role in shaping Renaissance art.</p>
+                        <div class="video-meta">
+                            <span>Renaissance</span>
+                            <span class="duration">1:05:19</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/GOAVRcI6mFU?si=Ol6zRXSeRLctCsbI">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">The Medici: Godfathers of the Renaissance</h3>
+                        <p class="video-description">Meet the powerful Medici family, patrons of art and science, who fueled the Renaissance movement.</p>
+                        <div class="video-meta">
+                            <span>Renaissance</span>
+                            <span class="duration">58:44</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/Vrb6tOVi2PI?si=bZcKOjVwMxnbMWbV">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Renaissance Science & Discovery</h3>
+                        <p class="video-description">Learn how Renaissance thinkers like Galileo and Copernicus revolutionized science and human knowledge.</p>
+                        <div class="video-meta">
+                            <span>Renaissance</span>
+                            <span class="duration">49:28</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/wLHBHA0sVgE?si=P-CA-t5odLLu16Tn">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Renaissance Architecture</h3>
+                        <p class="video-description">Discover the architectural wonders of the Renaissance, from Brunelleschi’s dome to St. Peter’s Basilica.</p>
+                        <div class="video-meta">
+                            <span>Renaissance</span>
+                            <span class="duration">36:12</span>
+                        </div>
+                    </div>
+                </div>
+                
+               
+                
+
+                <!-- Modern Era Video Cards -->
+<div class="video-card fade-in">
+    <div class="video-thumbnail" data-video-id="https://youtu.be/xLhNP0qp38Q?si=NwrjpBpCGKN5B8oe">
+        <div class="play-button"><div class="play-icon"></div></div>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Industrial Revolution</h3>
+        <p class="video-description">Experience the transformative power of steam and steel, as humanity entered a new age of innovation, progress, and unprecedented change.</p>
+        <div class="video-meta">
+            <span>Modern Era</span><span class="duration">41:33</span>
+        </div>
+    </div>
+</div>
+
+<div class="video-card fade-in">
+    <div class="video-thumbnail" data-video-id="https://youtu.be/1Ef0erm_KQI?si=fUmM4akcKsad5ye-">
+        <div class="play-button"><div class="play-icon"></div></div>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Age of Enlightenment</h3>
+        <p class="video-description">Discover the intellectual awakening that emphasized reason, science, and individual rights, shaping modern democracies.</p>
+        <div class="video-meta">
+            <span>Modern Era</span><span class="duration">38:20</span>
+        </div>
+    </div>
+</div>
+
+<div class="video-card fade-in">
+    <div class="video-thumbnail" data-video-id="https://youtu.be/GroIYmgorV8?si=14KC5rXR1LBlWPEa">
+        <div class="play-button"><div class="play-icon"></div></div>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">French Revolution</h3>
+        <p class="video-description">Witness the dramatic struggle for liberty, equality, and fraternity that transformed France and influenced the world.</p>
+        <div class="video-meta">
+            <span>Modern Era</span><span class="duration">45:10</span>
+        </div>
+    </div>
+</div>
+
+<div class="video-card fade-in">
+    <div class="video-thumbnail" data-video-id="https://youtu.be/MHi4dbW7wNY?si=KEHGhSoKmP7fycNg">
+        <div class="play-button"><div class="play-icon"></div></div>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">American Revolution</h3>
+        <p class="video-description">Explore the birth of the United States as colonists fought for independence and established a new nation.</p>
+        <div class="video-meta">
+            <span>Modern Era</span><span class="duration">42:05</span>
+        </div>
+    </div>
+</div>
+
+<div class="video-card fade-in">
+    <div class="video-thumbnail" data-video-id="https://youtu.be/-GsolnXOiBg?si=ZtUMmrQ3bXXDwzrz">
+        <div class="play-button"><div class="play-icon"></div></div>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">World War I</h3>
+        <p class="video-description">Step into the Great War that reshaped borders, societies, and global power in the early 20th century.</p>
+        <div class="video-meta">
+            <span>Modern Era</span><span class="duration">50:30</span>
+        </div>
+    </div>
+</div>
+
+<div class="video-card fade-in">
+    <div class="video-thumbnail" data-video-id="https://youtu.be/4_BCuiLMUhM?si=B3V4myVIZNQ1Ol_g">
+        <div class="play-button"><div class="play-icon"></div></div>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">World War II</h3>
+        <p class="video-description">Experience the most devastating conflict in human history, from the rise of fascism to the atomic age.</p>
+        <div class="video-meta">
+            <span>Modern Era</span><span class="duration">55:44</span>
+        </div>
+    </div>
+</div>
+
+<div class="video-card fade-in">
+    <div class="video-thumbnail" data-video-id="https://youtu.be/NF3u8Ju9aAg?si=sjPlkFuKsVLTPGmM">
+        <div class="play-button"><div class="play-icon"></div></div>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Cold War Era</h3>
+        <p class="video-description">Dive into the ideological standoff between the US and USSR, marked by espionage, nuclear threats, and proxy wars.</p>
+        <div class="video-meta">
+            <span>Modern Era</span><span class="duration">48:15</span>
+        </div>
+    </div>
+</div>
+
+<div class="video-card fade-in">
+    <div class="video-thumbnail" data-video-id="https://youtu.be/T_sGTspaF4Y?si=lvb0nN7mVffeCKEw">
+        <div class="play-button"><div class="play-icon"></div></div>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Decolonization</h3>
+        <p class="video-description">Learn how nations in Asia and Africa broke free from colonial rule, reshaping the modern political landscape.</p>
+        <div class="video-meta">
+            <span>Modern Era</span><span class="duration">37:22</span>
+        </div>
+    </div>
+</div>
+
+<div class="video-card fade-in">
+    <div class="video-thumbnail" data-video-id="https://youtu.be/OiczN-8QKDA?si=-dP_JWKtpNXNi94R">
+        <div class="play-button"><div class="play-icon"></div></div>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Space Age</h3>
+        <p class="video-description">From Sputnik to the Moon landing, witness humanity’s first steps into outer space exploration.</p>
+        <div class="video-meta">
+            <span>Modern Era</span><span class="duration">39:11</span>
+        </div>
+    </div>
+</div>
+
+<div class="video-card fade-in">
+    <div class="video-thumbnail" data-video-id="https://youtu.be/WpMoDKyqQwE?si=2RWZRyUkbzuWEK_P">
+        <div class="play-button"><div class="play-icon"></div></div>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Information Age</h3>
+        <p class="video-description">See how computers, the internet, and digital technology revolutionized communication and knowledge.</p>
+        <div class="video-meta">
+            <span>Modern Era</span><span class="duration">40:00</span>
+        </div>
+    </div>
+</div>
+
+<div class="video-card fade-in">
+    <div class="video-thumbnail" data-video-id="https://youtu.be/3oTLyPPrZE4?si=KdHAzQzH06cq6iLH">
+        <div class="play-button"><div class="play-icon"></div></div>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Globalization</h3>
+        <p class="video-description">Understand how trade, technology, and culture interconnected the modern world like never before.</p>
+        <div class="video-meta">
+            <span>Modern Era</span><span class="duration">36:12</span>
+        </div>
+    </div>
+</div>
+
+<div class="video-card fade-in">
+    <div class="video-thumbnail" data-video-id="https://youtu.be/m-9GA7ic7yY?si=ZiWK6xRSItMEIxOg">
+        <div class="play-button"><div class="play-icon"></div></div>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">21st Century Challenges</h3>
+        <p class="video-description">Explore modern issues such as climate change, technology, pandemics, and shifting global power.</p>
+        <div class="video-meta">
+            <span>Modern Era</span><span class="duration">43:50</span>
+        </div>
+    </div>
+</div>
+
+                <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/qyphzmuzF18?si=gZZm3bjJPnhQ3FNT">
+                      <div class="play-button"><div class="play-icon"></div></div>
+                    </div>
+                    <div class="video-info">
+                      <h3 class="video-title">Beginnings of the Space Age: Explorer 1</h3>
+                      <p class="video-description">The first U.S. satellite after Sputnik, marking the true Dawn of America’s Space Age.</p>
+                      <div class="video-meta"><span>Contemporary</span><span class="duration">—</span></div>
+                    </div>
+                  </div>
+                  
+                  <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/Qj_62FWfH78?si=X-A6yYuR6Vwl7cde">
+                      <div class="play-button"><div class="play-icon"></div></div>
+                    </div>
+                    <div class="video-info">
+                      <h3 class="video-title">JPL and the Space Age: The Stuff of Dreams</h3>
+                      <p class="video-description">A story from JPL about perseverance by people and machines overcoming obstacles in the early Space Age.</p>
+                      <div class="video-meta"><span>Contemporary</span><span class="duration">—</span></div>
+                    </div>
+                  </div>
+                  
+                  <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/0ieZROggB_4?si=SiZbdPaaWQBKS7-J">
+                      <div class="play-button"><div class="play-icon"></div></div>
+                    </div>
+                    <div class="video-info">
+                      <h3 class="video-title">Voyager: The Grand Tour</h3>
+                      <p class="video-description">Explore the Voyager missions that took us through the solar system’s outer planets.</p>
+                      <div class="video-meta"><span>Contemporary</span><span class="duration">—</span></div>
+                    </div>
+                  </div>
+                  
+                  <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/Yflae06K3VE?si=RjpFh2xDxKDk9rG2">
+                      <div class="play-button"><div class="play-icon"></div></div>
+                    </div>
+                    <div class="video-info">
+                      <h3 class="video-title">Voyager: The Grand Tour</h3>
+                      <p class="video-description">Explore the Voyager missions that gave us stunning close-ups of Jupiter, Saturn, Uranus, and Neptune.</p>
+                      <div class="video-meta"><span>Contemporary</span><span class="duration">32:48</span></div>
+                    </div>
+                  </div>
+                  
+                  <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/0-oQRSViZQE?si=K1TlE2sIlEm8Vx9_">
+                      <div class="play-button"><div class="play-icon"></div></div>
+                    </div>
+                    <div class="video-info">
+                      <h3 class="video-title">The Mars Rovers</h3>
+                      <p class="video-description">Follow Spirit, Opportunity, and Curiosity as they uncover secrets of the Martian surface.</p>
+                      <div class="video-meta"><span>Contemporary</span><span class="duration">29:52</span></div>
+                    </div>
+                  </div>
+                  
+                  <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/csIry_3pbDU?si=Z0zd89IfZ3RIyUeg">
+                      <div class="play-button"><div class="play-icon"></div></div>
+                    </div>
+                    <div class="video-info">
+                      <h3 class="video-title">James Webb Space Telescope</h3>
+                      <p class="video-description">See how JWST is peering back in time to study the first galaxies and distant exoplanets.</p>
+                      <div class="video-meta"><span>Contemporary</span><span class="duration">42:16</span></div>
+                    </div>
+                  </div>
+                  
+                  <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/oMeXcBk1x-c?si=jG8zosRwEXRyCcvI">
+                      <div class="play-button"><div class="play-icon"></div></div>
+                    </div>
+                    <div class="video-info">
+                      <h3 class="video-title">The Space Shuttle Era</h3>
+                      <p class="video-description">From Columbia to Atlantis, revisit NASA’s iconic shuttle program and its triumphs and tragedies.</p>
+                      <div class="video-meta"><span>Contemporary</span><span class="duration">55:12</span></div>
+                    </div>
+                  </div>
+                  
+                  <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/xb0rhSR4qAk?si=E6Xb-6_mmNW_6kM0">
+                      <div class="play-button"><div class="play-icon"></div></div>
+                    </div>
+                    <div class="video-info">
+                      <h3 class="video-title">Private Spaceflight Revolution</h3>
+                      <p class="video-description">How SpaceX, Blue Origin, and others are changing the economics and future of space travel.</p>
+                      <div class="video-meta"><span>Contemporary</span><span class="duration">33:44</span></div>
+                    </div>
+                  </div>
+                  
+                  <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/Umh9bySuqmQ?si=9ZUhMr1AWPKaBhwb">
+                      <div class="play-button"><div class="play-icon"></div></div>
+                    </div>
+                    <div class="video-info">
+                      <h3 class="video-title">The Race to Mars</h3>
+                      <p class="video-description">Will humans soon set foot on Mars? Explore the plans of NASA, SpaceX, and global space agencies.</p>
+                      <div class="video-meta"><span>Contemporary</span><span class="duration">37:20</span></div>
+                    </div>
+                  </div>
+                  
+                  <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/Wi_jQ-DJ-qk?si=_CNOujONKlMim9Qd">
+                      <div class="play-button"><div class="play-icon"></div></div>
+                    </div>
+                    <div class="video-info">
+                      <h3 class="video-title">The Future of Space Exploration</h3>
+                      <p class="video-description">From lunar bases to interstellar probes, glimpse the bold ideas that may define our cosmic future.</p>
+                      <div class="video-meta"><span>Contemporary</span><span class="duration">49:03</span></div>
+                    </div>
+                  </div>
+                  
+                  <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://youtu.be/kOEDG3j1bjs?si=gYq8tWZ3xajppqRG">
+                      <div class="play-button"><div class="play-icon"></div></div>
+                    </div>
+                    <div class="video-info">
+                      <h3 class="video-title">Black Holes Explained</h3>
+                      <p class="video-description">Dive into the mysterious world of black holes and the physics that bend space and time.</p>
+                      <div class="video-meta"><span>Contemporary</span><span class="duration">41:08</span></div>
+                    </div>
+                  </div>
+                  
+                  <div class="video-card fade-in">
+                    <div class="video-thumbnail" data-video-id="https://www.youtube.com/live/FD-zTrRWoM8?si=rGo-cpvE0aaXP1Zm">
+                      <div class="play-button"><div class="play-icon"></div></div>
+                    </div>
+                    <div class="video-info">
+                      <h3 class="video-title">Exoplanet Discoveries</h3>
+                      <p class="video-description">Learn how scientists are detecting new worlds orbiting distant stars and searching for life.</p>
+                      <div class="video-meta"><span>Contemporary</span><span class="duration">36:25</span></div>
+                    </div>
+                  </div>
+            </div>
+            <div class="pagination" id="pagination" aria-label="Video pagination">
+                <button class="pager-button" id="prevPage">Previous</button>
+                <button class="pager-button" id="nextPage">Next</button>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="footer-text">"History is not a burden on the memory but an illumination of the soul."</p>
+                <div class="footer-ornament">❦ ◊ ❦</div>
+                <p class="copyright">© 2025 Histovue. Preserving the past, inspiring the future.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scrolling functionality
+        function scrollToContent() {
+            document.getElementById('content').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        let lastScrollY = window.scrollY;
+        const heroSection = document.getElementById('hero');
+
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                // User is scrolling down
+                heroSection.classList.add('hidden');
+            } else if (currentScrollY < lastScrollY) {
+                // User is scrolling up
+                heroSection.classList.remove('hidden');
+            }
+
+            lastScrollY = currentScrollY;
+        });
+
+        
+        // Navigation functionality
+        function normalizeLabel(text) {
+            return String(text || '').toLowerCase().trim().replace(/\s+/g, ' ');
+        }
+
+        function getCardCategory(card) {
+            const span = card.querySelector('.video-meta span');
+            return span ? normalizeLabel(span.textContent) : '';
+        }
+
+        let currentFilterLabel = 'all';
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                currentFilterLabel = this.textContent;
+                currentPage = 0;
+                renderPage();
+            });
+        });
+
+        // Setup thumbnails and inline YouTube playback
+        function getYouTubeIdFromUrl(url) {
+            if (!url) return null;
+            const match = url.match(/(?:youtube\.com\/.+[?&]v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/);
+            return match ? match[1] : null;
+        }
+ 
+        function getVideoIdFromEl(el) {
+            if (!el) return null;
+            const rawId = el.dataset.videoId;
+            if (rawId) {
+                const parsed = getYouTubeIdFromUrl(rawId);
+                if (parsed) return parsed; // data-video-id accidentally contains a URL
+                if (rawId.length === 11) return rawId; // proper 11-char ID
+            }
+            const fromUrl = getYouTubeIdFromUrl(el.dataset.videoUrl);
+            return fromUrl || null;
+        }
+ 
+        function createYouTubeIframe(videoId) {
+            const iframe = document.createElement('iframe');
+            iframe.width = '100%';
+            iframe.height = '100%';
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1`;
+            iframe.title = 'YouTube video player';
+            iframe.frameBorder = '0';
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+            iframe.allowFullscreen = true;
+            return iframe;
+        }
+ 
+        function playInlineVideo(thumbnailEl) {
+            if (!thumbnailEl || thumbnailEl.classList.contains('playing')) return;
+            const videoId = getVideoIdFromEl(thumbnailEl);
+            if (!videoId) {
+                const url = thumbnailEl.dataset.videoUrl || thumbnailEl.dataset.watchUrl;
+                if (url) window.open(url, '_blank');
+                return;
+            }
+            const iframe = createYouTubeIframe(videoId);
+            const card = thumbnailEl.closest('.video-card');
+            if (card) card.classList.add('playing');
+            thumbnailEl.classList.add('playing');
+            thumbnailEl.innerHTML = '';
+            thumbnailEl.appendChild(iframe);
+            // re-add fallback button over iframe
+            const watchUrl = thumbnailEl.dataset.watchUrl || `https://www.youtube.com/watch?v=${videoId}`;
+            const link = document.createElement('a');
+            link.href = watchUrl;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.className = 'open-youtube-btn';
+            link.textContent = 'Open on YouTube';
+            link.addEventListener('click', (e) => e.stopPropagation());
+            thumbnailEl.appendChild(link);
+        }
+ 
+        // Initialize thumbnails automatically from data-video-id if present
+        document.querySelectorAll('.video-thumbnail').forEach(thumb => {
+            const id = getVideoIdFromEl(thumb);
+            const alreadyHasImg = !!thumb.querySelector('img');
+            const thumbSrc = thumb.dataset.thumbUrl || (id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : null);
+            if (thumbSrc && !alreadyHasImg) {
+                const img = new Image();
+                img.src = thumbSrc;
+                img.alt = 'Video thumbnail';
+                img.className = 'thumb-img';
+                thumb.prepend(img);
+            }
+            // set or compute a clean watch URL
+            if (!thumb.dataset.watchUrl) {
+                if (thumb.dataset.videoUrl) {
+                    thumb.dataset.watchUrl = thumb.dataset.videoUrl;
+                } else if (id) {
+                    thumb.dataset.watchUrl = `https://www.youtube.com/watch?v=${id}`;
+                }
+            }
+            // add fallback button if not present
+            if (thumb.dataset.watchUrl && !thumb.querySelector('.open-youtube-btn')) {
+                const link = document.createElement('a');
+                link.href = thumb.dataset.watchUrl;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.className = 'open-youtube-btn';
+                link.textContent = 'Open on YouTube';
+                link.addEventListener('click', (e) => e.stopPropagation());
+                thumb.appendChild(link);
+            }
+        });
+
+        // Click to play on thumbnail and on play button
+        document.querySelectorAll('.video-thumbnail').forEach(thumb => {
+            thumb.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const externalUrl = thumb.dataset.watchUrl || thumb.dataset.videoUrl;
+                if (externalUrl) {
+                    window.open(externalUrl, '_blank');
+                    return;
+                }
+                playInlineVideo(thumb);
+            });
+        });
+
+        document.querySelectorAll('.video-thumbnail .play-button').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const thumb = btn.closest('.video-thumbnail');
+                if (thumb) {
+                    const externalUrl = thumb.dataset.watchUrl || thumb.dataset.videoUrl;
+                    if (externalUrl) {
+                        window.open(externalUrl, '_blank');
+                        return;
+                    }
+                    const id = getVideoIdFromEl(thumb);
+                    if (id) {
+                        window.open(`https://www.youtube.com/watch?v=${id}`, '_blank');
+                        return;
+                    }
+                }
+            });
+        });
+
+        // Video card interaction
+        document.querySelectorAll('.video-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (this.classList.contains('playing')) return;
+                if (e && e.target && e.target.closest && e.target.closest('.video-thumbnail')) return;
+                const title = this.querySelector('.video-title').textContent;
+                alert(`Opening: ${title}\n\nThis would normally play the historical documentary.`);
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all video cards for animation
+        document.querySelectorAll('.video-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+            observer.observe(card);
+        });
+
+        // Pagination (6 per page)
+        const allCards = Array.from(document.querySelectorAll('.video-grid .video-card'));
+        const pageSize = 6;
+        let currentPage = 0;
+        const prevBtn = document.getElementById('prevPage');
+        const nextBtn = document.getElementById('nextPage');
+        const paginationEl = document.getElementById('pagination');
+
+        function getFilteredCardsByLabel() {
+            const wanted = normalizeLabel(currentFilterLabel);
+            if (wanted === 'all' || wanted === '') return allCards;
+            return allCards.filter(card => getCardCategory(card) === wanted);
+        }
+
+        function renderPage() {
+            const filtered = getFilteredCardsByLabel();
+            const grid = document.querySelector('.video-grid');
+            if (grid) {
+                const isFiltered = normalizeLabel(currentFilterLabel) !== 'all' && normalizeLabel(currentFilterLabel) !== '';
+                grid.classList.toggle('uniform-cards', isFiltered);
+            }
+            const totalPages = Math.ceil(filtered.length / pageSize) || 1;
+            if (currentPage >= totalPages) currentPage = totalPages - 1;
+            if (paginationEl) {
+                paginationEl.style.display = totalPages > 1 ? 'flex' : 'none';
+            }
+            // hide all, then show current slice
+            allCards.forEach(card => { card.style.display = 'none'; });
+            const start = currentPage * pageSize;
+            const end = start + pageSize;
+            filtered.slice(start, end).forEach(card => { card.style.display = ''; });
+            if (prevBtn) prevBtn.disabled = currentPage === 0;
+            if (nextBtn) nextBtn.disabled = currentPage >= totalPages - 1;
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                if (currentPage > 0) {
+                    currentPage -= 1;
+                    renderPage();
+                }
+            });
+        }
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                const totalPages = Math.ceil(getFilteredCardsByLabel().length / pageSize) || 1;
+                if (currentPage < totalPages - 1) {
+                    currentPage += 1;
+                    renderPage();
+                }
+            });
+        }
+
+        // initial pagination
+        renderPage();
+
+        // Add subtle parallax effect to hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+</html>

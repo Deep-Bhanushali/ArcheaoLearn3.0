@@ -1,0 +1,258 @@
+/* Timeline Section */
+.timeline-section {
+padding: 6rem 5%;
+background-color: var(--sand);
+position: relative;
+}
+
+.timeline-section::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-image: url('/api/placeholder/200');
+background-repeat: repeat;
+opacity: 0.05;
+}
+
+.timeline-container {
+position: relative;
+z-index: 1;
+max-width: 1200px;
+margin: 0 auto;
+}
+
+.timeline-navigation {
+display: flex;
+justify-content: center;
+flex-wrap: wrap;
+gap: 1rem;
+margin-top: 2rem;
+margin-bottom: 2rem;
+}
+
+.timeline-nav-btn {
+  background-color: transparent;
+  color: var(--black);
+  border: 2px solid var(--gold);
+  padding: 0.7rem 1.5rem;
+  border-radius: 50px;
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  transition: var(--transition);
+  font-size: 1rem;
+}
+
+.timeline-nav-btn:hover, .timeline-nav-btn.active {
+background-color: var(--gold);
+color: var(--black);
+}
+
+.timeline {
+position: relative;
+padding-top: 2rem;
+}
+
+.timeline-progress {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 4px;
+background-color: var(--sand-dark);
+border-radius: 2px;
+}
+
+.timeline-progress-bar {
+height: 100%;
+width: 16.6%; /* 1/6 for each era */
+background-color: var(--gold);
+border-radius: 2px;
+transition: width 0.5s ease;
+}
+
+.timeline-era {
+display: none;
+background-color: var(--white);
+border-radius: 8px;
+overflow: hidden;
+box-shadow: 0 5px 15px var(--shadow);
+}
+
+.timeline-era.active {
+display: block;
+animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+to {
+  opacity: 1;
+  transform: translateY(0);
+}
+}
+
+.era-header {
+background-color: var(--black);
+color: var(--white);
+padding: 1.5rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.era-header h3 {
+color: var(--gold);
+margin-bottom: 0;
+font-size: 1.8rem;
+}
+
+.era-years {
+color: var(--sand-light);
+font-weight: 400;
+}
+
+.era-content {
+display: flex;
+flex-wrap: wrap;
+}
+
+.era-image {
+flex: 1;
+min-width: 300px;
+}
+
+.era-image img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+.era-text {
+flex: 1;
+min-width: 300px;
+padding: 2rem;
+}
+
+.era-highlights {
+margin: 1.5rem 0;
+}
+
+.era-highlights li {
+margin-bottom: 0.8rem;
+}
+
+.era-highlights .highlight {
+font-weight: 700;
+}
+
+.cta-timeline-button {
+  display: inline-block;
+  background-color: transparent;
+  color: var(--gold);
+  text-decoration: none;
+  border: 2px solid var(--gold);
+  padding: 0.9rem 2rem;
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  opacity: 0;
+  animation: fadeInUp 1s ease-out forwards;
+  animation-delay: 1.4s;
+}
+
+.cta-timeline-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: var(--gold);
+  transition: var(--transition-fast);
+  z-index: -1;
+}
+
+.cta-timeline-button:hover {
+  color: var(--black);  
+}
+
+.cta-timeline-button a{
+  color: inherit;
+  text-decoration: none;
+}
+
+.cta-timeline-button:hover::before {
+  left: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .timeline-section {
+    padding: 4rem 1rem;
+  }
+
+  .timeline-navigation {
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .timeline-nav-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .era-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .era-header h3 {
+    font-size: 1.5rem;
+  }
+
+  .era-content {
+    flex-direction: column;
+  }
+
+  .era-image {
+    min-width: auto;
+    height: 250px;
+  }
+
+  .era-text {
+    padding: 1.5rem;
+  }
+
+  .era-highlights {
+    margin: 1rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline-nav-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .era-header {
+    padding: 1rem;
+  }
+
+  .era-text {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,1961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histouria - Journey Through Time</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:wght@300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            background: radial-gradient(ellipse at top, #2d2d2d 0%, #1a1a1a 70%);
+            color: #f5f5f5;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #daa520;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 0.6; }
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(135deg, 
+                rgba(218, 165, 32, 0.1) 0%, 
+                rgba(0, 0, 0, 0.3) 30%, 
+                rgba(218, 165, 32, 0.05) 70%, 
+                rgba(0, 0, 0, 0.4) 100%);
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(218, 165, 32, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(218, 165, 32, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            animation: backgroundShimmer 8s ease-in-out infinite;
+        }
+
+        @keyframes backgroundShimmer {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero-title {
+            font-family: 'Cinzel', serif;
+            font-size: 5rem;
+            font-weight: 700;
+            color: #daa520;
+            margin-bottom: 1rem;
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(218, 165, 32, 0.3);
+            letter-spacing: 3px;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+            position: relative;
+        }
+
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            border: 2px solid rgba(218, 165, 32, 0.3);
+            border-radius: 20px;
+            animation: borderPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 20px rgba(218, 165, 32, 0.3); }
+            100% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 30px rgba(218, 165, 32, 0.6); }
+        }
+
+        @keyframes borderPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.6; }
+        }
+
+        .hero-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: #f5f5f5;
+            font-style: italic;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: subtitleFade 2s ease-in-out;
+            line-height: 1.4;
+        }
+
+        @keyframes subtitleFade {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 0.9; transform: translateY(0); }
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+            animation: descriptionSlide 2.5s ease-in-out;
+        }
+
+        @keyframes descriptionSlide {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .explore-btn {
+            background: linear-gradient(135deg, #daa520 0%, #b8860b 100%);
+            color: #1a1a1a;
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 6px 20px rgba(218, 165, 32, 0.3);
+            animation: buttonFloat 3s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .explore-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .explore-btn:hover::before {
+            left: 100%;
+        }
+
+        .explore-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(218, 165, 32, 0.5);
+        }
+
+        @keyframes buttonFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Decorative elements */
+        .hero-ornament {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 3px solid rgba(218, 165, 32, 0.3);
+            border-radius: 50%;
+            animation: rotate 20s linear infinite;
+        }
+
+        .hero-ornament.top-left {
+            top: 10%;
+            left: 10%;
+            animation-direction: normal;
+        }
+
+        .hero-ornament.top-right {
+            top: 10%;
+            right: 10%;
+            animation-direction: reverse;
+        }
+
+        .hero-ornament.bottom-left {
+            bottom: 10%;
+            left: 10%;
+            animation-direction: reverse;
+        }
+
+        .hero-ornament.bottom-right {
+            bottom: 10%;
+            right: 10%;
+            animation-direction: normal;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Main content */
+        .main-content {
+            position: relative;
+            z-index: 10;
+            background: linear-gradient(180deg, rgba(26, 26, 26, 0.95) 0%, rgba(45, 45, 45, 0.95) 100%);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, 
+                rgba(218, 165, 32, 0.1) 0%, 
+                rgba(255, 255, 255, 0.05) 50%, 
+                rgba(218, 165, 32, 0.1) 100%);
+            border-top: 3px solid #daa520;
+            border-bottom: 3px solid #daa520;
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(218, 165, 32, 0.1), transparent);
+            animation: headerShine 4s ease-in-out infinite;
+        }
+
+        @keyframes headerShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #daa520;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            color: #f5f5f5;
+            font-style: italic;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            display: flex;
+            min-height: 80vh;
+            position: relative;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        .map-container {
+            flex: 1;
+            position: relative;
+            border: 4px solid #daa520;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 
+                0 10px 40px rgba(218, 165, 32, 0.3),
+                inset 0 0 20px rgba(218, 165, 32, 0.1);
+            background: linear-gradient(135deg, rgba(218, 165, 32, 0.05) 0%, transparent 100%);
+        }
+
+        .map-container::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            background: linear-gradient(45deg, #daa520, #f5f5f5, #daa520, #b8860b);
+            border-radius: 24px;
+            z-index: -1;
+            animation: borderGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes borderGlow {
+            0% { box-shadow: 0 0 20px rgba(218, 165, 32, 0.5); }
+            100% { box-shadow: 0 0 40px rgba(218, 165, 32, 0.8); }
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+            filter: sepia(15%) saturate(0.8) brightness(0.85) contrast(1.1);
+            border-radius: 16px;
+        }
+
+        .side-panel {
+            position: fixed;
+            right: -500px;
+            top: 0;
+            width: 500px;
+            height: 100vh;
+            background: linear-gradient(180deg, 
+                rgba(26, 26, 26, 0.95) 0%, 
+                rgba(45, 45, 45, 0.95) 100%);
+            border-left: 4px solid #daa520;
+            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            overflow-y: auto;
+            box-shadow: -15px 0 40px rgba(0, 0, 0, 0.6);
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+        }
+
+        .side-panel.active {
+            right: 0;
+        }
+
+        .panel-header {
+            background: linear-gradient(135deg, #daa520 0%, #b8860b 100%);
+            color: #1a1a1a;
+            padding: 3rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            animation: headerPattern 6s ease-in-out infinite;
+        }
+
+        @keyframes headerPattern {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(26, 26, 26, 0.8);
+            border: 2px solid #1a1a1a;
+            color: #daa520;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+        }
+
+        .close-btn:hover {
+            background: #1a1a1a;
+            color: #f5f5f5;
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .country-name {
+            font-family: 'Cinzel', serif;
+            font-size: 2.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .country-region {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            font-style: italic;
+        }
+
+        .panel-content {
+            padding: 2.5rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .panel-section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.6rem;
+            color: #daa520;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid rgba(218, 165, 32, 0.3);
+            position: relative;
+        }
+
+        .panel-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #daa520, #b8860b);
+            border-radius: 2px;
+        }
+
+        .historical-content {
+            line-height: 1.9;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            text-align: justify;
+            text-indent: 2rem;
+            color: #e8e8e8;
+        }
+
+        .periods-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .period-card {
+            background: linear-gradient(135deg, 
+                rgba(218, 165, 32, 0.1) 0%, 
+                rgba(255, 255, 255, 0.05) 100%);
+            border: 2px solid rgba(218, 165, 32, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .period-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(218, 165, 32, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .period-card:hover::before {
+            left: 100%;
+        }
+
+        .period-card:hover {
+            background: linear-gradient(135deg, 
+                rgba(218, 165, 32, 0.2) 0%, 
+                rgba(255, 255, 255, 0.1) 100%);
+            border-color: #daa520;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(218, 165, 32, 0.2);
+        }
+
+        .period-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: #daa520;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+
+        .period-dates {
+            font-size: 1rem;
+            color: #b8860b;
+            margin-bottom: 1rem;
+            font-style: italic;
+            font-weight: 600;
+        }
+
+        .facts-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .fact-card {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.08) 0%, 
+                rgba(218, 165, 32, 0.05) 100%);
+            border-left: 5px solid #daa520;
+            padding: 2rem;
+            border-radius: 0 15px 15px 0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .fact-card:hover {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.12) 0%, 
+                rgba(218, 165, 32, 0.1) 100%);
+            transform: translateX(5px);
+            box-shadow: 5px 5px 20px rgba(218, 165, 32, 0.15);
+        }
+
+        .fact-title {
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            color: #daa520;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .map-instructions {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background: linear-gradient(135deg, 
+                rgba(26, 26, 26, 0.95) 0%, 
+                rgba(45, 45, 45, 0.95) 100%);
+            border: 3px solid #daa520;
+            border-radius: 15px;
+            padding: 1.5rem 2rem;
+            max-width: 350px;
+            z-index: 500;
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.3);
+        }
+
+        .instructions-title {
+            font-family: 'Cinzel', serif;
+            color: #daa520;
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .instructions-text {
+            font-size: 1rem;
+            color: #f5f5f5;
+            line-height: 1.5;
+        }
+
+        .loading {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 600;
+            background: rgba(26, 26, 26, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid #daa520;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(218, 165, 32, 0.3);
+            border-top: 4px solid #daa520;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-family: 'Cinzel', serif;
+            color: #daa520;
+            font-size: 1.1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 4rem;
+            }
+            
+            .side-panel {
+                width: 100vw;
+                right: -100vw;
+            }
+            
+            .container {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .map-container {
+                height: 60vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .hero-description {
+                font-size: 1rem;
+            }
+            
+            .map-instructions {
+                position: relative;
+                margin: 1rem;
+                margin-bottom: 0;
+            }
+            
+            .hero-ornament {
+                display: none;
+            }
+        }
+
+        /* Custom scrollbar */
+        .side-panel::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .side-panel::-webkit-scrollbar-track {
+            background: rgba(26, 26, 26, 0.5);
+        }
+
+        .side-panel::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #daa520, #b8860b);
+            border-radius: 4px;
+        }
+
+        /* Custom Leaflet styling */
+        .leaflet-popup-content-wrapper {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border: 3px solid #daa520;
+            border-radius: 12px;
+            color: #f5f5f5;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .leaflet-popup-tip {
+            background: #daa520;
+        }
+
+        .leaflet-control-zoom {
+            border: 3px solid #daa520 !important;
+            border-radius: 12px !important;
+            overflow: hidden;
+        }
+
+        .leaflet-control-zoom a {
+            background: rgba(26, 26, 26, 0.9) !important;
+            color: #daa520 !important;
+            border: none !important;
+            font-size: 18px !important;
+            font-weight: bold !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .leaflet-control-zoom a:hover {
+            background: #daa520 !important;
+            color: #1a1a1a !important;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+        <!-- Animated background particles -->
+        <div class="bg-particles" id="bgParticles"></div>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-ornament top-left"></div>
+            <div class="hero-ornament top-right"></div>
+            <div class="hero-ornament bottom-left"></div>
+            <div class="hero-ornament bottom-right"></div>
+            
+            <div class="hero-content">
+                <h1 class="hero-title">HISTOURIA</h1>
+                <p class="hero-subtitle">Journey Through the Epochs of Human Civilization</p>
+                <p class="hero-description">
+                    Embark on an extraordinary voyage through time and space, where the greatest civilizations 
+                    of our world await your discovery. From the ancient pyramids of Egypt to the philosophical 
+                    schools of Greece, experience history as never before.
+                </p>
+                <button class="explore-btn" onclick="scrollToMap()">Begin Your Journey</button>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="section-header">
+                <h2 class="section-title">Interactive Historical Atlas</h2>
+                <p class="section-subtitle">Explore civilizations that shaped our world</p>
+            </div>
+
+            <div class="container">
+                <div class="map-container">
+                    <div class="map-instructions">
+                        <div class="instructions-title">Explorer's Guide</div>
+                        <div class="instructions-text">
+                            Click on the golden markers or any highlighted region to uncover 
+                            the mysteries and magnificent histories of ancient civilizations.
+                        </div>
+                    </div>
+                    <div id="map"></div>
+                    <div class="loading" id="loading">
+                        <div class="spinner"></div>
+                        <div class="loading-text">Unveiling Ancient Secrets...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="side-panel" id="sidePanel">
+            <div class="panel-header">
+                <button class="close-btn" onclick="closeSidePanel()">&times;</button>
+                <div class="country-name" id="countryName">Ancient Civilization</div>
+                <div class="country-region" id="countryRegion">Historical Region</div>
+            </div>
+            
+            <div class="panel-content">
+                <div class="section">
+                    <h3 class="panel-section-title">Chronicle of Ages</h3>
+                    <div class="historical-content" id="historicalContent">
+                        Select a civilization to delve into its magnificent historical tapestry...
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="panel-section-title">Epochal Periods</h3>
+                    <div class="periods-grid" id="periodsGrid">
+                        <!-- Periods will be populated here -->
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="panel-section-title">Archaeological Treasures</h3>
+                    <div class="facts-grid" id="factsGrid">
+                        <!-- Facts will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script>
+        // Create animated background particles
+        function createParticles() {
+            const container = document.getElementById('bgParticles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Smooth scroll to map
+        function scrollToMap() {
+            document.querySelector('.main-content').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // Initialize the map
+        const map = L.map('map', {
+            center: [20, 0],
+            zoom: 2,
+            minZoom: 2,
+            maxZoom: 10,
+            worldCopyJump: true,
+            zoomControl: true
+        });
+
+        // Custom tile layer with enhanced historical styling
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 18,
+        }).addTo(map);
+
+        // Enhanced historical data for countries
+        const countryData = {
+           'Egypt': {
+                region: 'North Africa',
+                history: 'Egypt, the cradle of one of the world\'s oldest civilizations, boasts a history spanning over 5,000 years. From the magnificent pharaohs who built the pyramids to the Ptolemaic dynasty and Islamic conquests, Egypt has been a crossroads of African, Asian, and Mediterranean cultures. The ancient Egyptians pioneered writing, medicine, architecture, and established one of history\'s most enduring civilizations along the life-giving Nile River.',
+                periods: [
+                    { title: 'Ancient Kingdom Period', dates: '3100-2181 BCE', description: 'Unification of Upper and Lower Egypt, pyramid construction, and establishment of pharaonic rule.' },
+                    { title: 'Ptolemaic Period', dates: '332-30 BCE', description: 'Greek rule following Alexander\'s conquest, Alexandria as center of learning.' },
+                    { title: 'Islamic Era', dates: '641 CE-1517 CE', description: 'Arab conquest and the flourishing of Islamic civilization and scholarship.' }
+                ],
+                facts: [
+                    { title: 'Great Pyramid of Giza', description: 'One of the Seven Wonders of the Ancient World, built around 2580-2510 BCE.' },
+                    { title: 'Rosetta Stone', description: 'Key to deciphering hieroglyphics, discovered in 1799.' },
+                    { title: 'Valley of the Kings', description: 'Royal burial ground containing 63 tombs, including Tutankhamun\'s.' }
+                ]
+            },
+            'Greece': {
+                region: 'Southern Europe',
+                history: 'Greece is renowned as the birthplace of democracy, philosophy, theater, and the Olympic Games. Ancient Greek civilization laid the foundations for Western culture, producing legendary philosophers like Socrates, Plato, and Aristotle. From the city-states of Athens and Sparta to the conquests of Alexander the Great, Greece\'s influence spread across the known world, creating the Hellenistic period that blended Greek culture with local traditions across three continents.',
+                periods: [
+                    { title: 'Classical Period', dates: '5th-4th centuries BCE', description: 'Golden age of Athens, birth of democracy, philosophy, and dramatic arts.' },
+                    { title: 'Hellenistic Period', dates: '323-146 BCE', description: 'Alexander\'s empire and the spread of Greek culture across the Mediterranean and Asia.' },
+                    { title: 'Byzantine Era', dates: '330-1453 CE', description: 'Eastern Roman Empire with Constantinople as its capital.' }
+                ],
+                facts: [
+                    { title: 'Parthenon', description: 'Iconic temple dedicated to Athena, symbol of ancient Greek architectural achievement.' },
+                    { title: 'Delphi Oracle', description: 'Sacred site where the Oracle delivered prophecies that influenced major decisions.' },
+                    { title: 'Olympic Games', description: 'Ancient athletic competitions held every four years from 776 BCE.' }
+                ]
+            },
+            'Italy': {
+                region: 'Southern Europe',
+                history: 'Italy\'s history encompasses the Roman Empire, one of history\'s greatest civilizations, and the Renaissance, which revolutionized art, science, and human thought. From the legendary founding of Rome in 753 BCE to the artistic masterpieces of Leonardo da Vinci and Michelangelo, Italy has been a continuous source of cultural, political, and intellectual innovation that shaped the Western world.',
+                periods: [
+                    { title: 'Roman Republic & Empire', dates: '509 BCE-476 CE', description: 'Rise and fall of the mighty Roman Empire that dominated the Mediterranean world.' },
+                    { title: 'Renaissance', dates: '14th-17th centuries', description: 'Cultural rebirth featuring unprecedented achievements in art, science, and literature.' },
+                    { title: 'Papal States', dates: '756-1870 CE', description: 'Territories under direct sovereign rule of the Pope.' }
+                ],
+                facts: [
+                    { title: 'Colosseum', description: 'Largest amphitheater ever built, could hold 50,000-80,000 spectators.' },
+                    { title: 'Pompeii', description: 'Roman city preserved by volcanic ash from Mount Vesuvius in 79 CE.' },
+                    { title: 'Vatican Museums', description: 'Home to one of the world\'s greatest art collections, including the Sistine Chapel.' }
+                ]
+            },
+            'China': {
+                region: 'East Asia',
+                history: 'China boasts one of the world\'s longest continuous civilizations, spanning over 4,000 years. From the legendary Yellow Emperor to the modern People\'s Republic, China has seen the rise and fall of numerous dynasties, each contributing to a rich tapestry of cultural, technological, and philosophical achievements. Chinese innovations like paper, gunpowder, the compass, and printing revolutionized human civilization.',
+                periods: [
+                    { title: 'Imperial Dynasties', dates: '2070 BCE-1912 CE', description: 'Over 4,000 years of dynastic rule, including Han, Tang, Ming, and Qing dynasties.' },
+                    { title: 'Warring States Period', dates: '475-221 BCE', description: 'Era of philosophical flourishing with Confucius, Laozi, and other great thinkers.' },
+                    { title: 'Silk Road Era', dates: '130 BCE-1453 CE', description: 'Ancient trade networks connecting East and West.' }
+                ],
+                facts: [
+                    { title: 'Great Wall of China', description: 'Massive fortification system stretching over 13,000 miles.' },
+                    { title: 'Terracotta Army', description: 'Over 8,000 life-sized warrior statues guarding Emperor Qin\'s tomb.' },
+                    { title: 'Forbidden City', description: 'Imperial palace complex with 9,999 rooms, home to 24 emperors.' }
+                ]
+            },
+            'India': {
+                region: 'South Asia',
+                history: 'India, known as the birthplace of four major world religions (Hinduism, Buddhism, Jainism, and Sikhism), has a civilization dating back to the Indus Valley (3300-1300 BCE). The subcontinent has witnessed the rise and fall of great empires like the Maurya, Gupta, and Mughal, each leaving indelible marks on art, architecture, philosophy, and science. India\'s mathematical innovations, including the concept of zero, revolutionized human understanding.',
+                periods: [
+                    { title: 'Indus Valley Civilization', dates: '3300-1300 BCE', description: 'One of the world\'s earliest urban civilizations with advanced city planning.' },
+                    { title: 'Mauryan Empire', dates: '322-185 BCE', description: 'First empire to unite most of the Indian subcontinent under Chandragupta and Ashoka.' },
+                    { title: 'Mughal Empire', dates: '1526-1857 CE', description: 'Islamic empire known for architectural wonders like the Taj Mahal.' }
+                ],
+                facts: [
+                    { title: 'Taj Mahal', description: 'UNESCO World Heritage site, considered the jewel of Muslim art in India.' },
+                    { title: 'Harappa & Mohenjo-daro', description: 'Ancient Indus Valley cities with sophisticated drainage and urban planning.' },
+                    { title: 'Ajanta & Ellora Caves', description: 'Rock-cut Buddhist, Hindu, and Jain temples showcasing ancient Indian art.' }
+                ]
+            },
+            'Peru': {
+                region: 'South America',
+                history: 'Peru is home to one of the Americas\' most sophisticated ancient civilizations, the Inca Empire, which at its peak controlled territory stretching from Ecuador to Chile. Before the Incas, numerous cultures flourished including the Nazca, Moche, and Chavin civilizations. The Spanish conquest in 1532 ended the Inca Empire but left behind remarkable archaeological sites that continue to reveal secrets of pre-Columbian America.',
+                periods: [
+                    { title: 'Pre-Inca Civilizations', dates: '900 BCE-1200 CE', description: 'Chavin, Nazca, Moche, and other advanced cultures with unique artistic traditions.' },
+                    { title: 'Inca Empire', dates: '1438-1572 CE', description: 'Largest empire in pre-Columbian America, known as Tawantinsuyu.' },
+                    { title: 'Spanish Colonial Period', dates: '1532-1821 CE', description: 'Spanish rule that transformed indigenous societies and cultures.' }
+                ],
+                facts: [
+                    { title: 'Machu Picchu', description: 'Mysterious Inca citadel perched high in the Andes, rediscovered in 1911.' },
+                    { title: 'Nazca Lines', description: 'Enormous geoglyphs in the desert, purpose still debated by archaeologists.' },
+                    { title: 'Sacsayhuamán', description: 'Impressive Inca fortress with precisely fitted massive stone blocks.' }
+                ]
+            },
+            'France': {
+                region: 'Western Europe',
+                history: 'France has played a pivotal role in European and world history, from the medieval Frankish kingdoms to the revolutionary ideals that transformed the modern world. The French Revolution of 1789 introduced concepts of liberty, equality, and fraternity that influenced democratic movements globally. France has been a center of art, literature, philosophy, and cuisine, contributing immensely to global culture.',
+                periods: [
+                    { title: 'Medieval Kingdom', dates: '987-1789 CE', description: 'Capetian dynasty and the development of French feudalism and Gothic architecture.' },
+                    { title: 'French Revolution', dates: '1789-1799 CE', description: 'Radical political and social transformation that ended absolute monarchy.' },
+                    { title: 'Napoleonic Era', dates: '1799-1815 CE', description: 'Napoleon\'s conquests spread French influence across Europe.' }
+                ],
+                facts: [
+                    { title: 'Palace of Versailles', description: 'Opulent royal residence symbolizing absolute monarchy\'s grandeur.' },
+                    { title: 'Lascaux Cave Paintings', description: 'Paleolithic cave art dating back 17,000 years.' },
+                    { title: 'Notre-Dame Cathedral', description: 'Gothic architectural masterpiece and symbol of medieval Paris.' }
+                ]
+            },
+            'Japan': {
+        region: 'East Asia',
+        history: 'Japan has a unique history shaped by isolation and cultural synthesis. From the age of samurai and shoguns to the Meiji Restoration, Japan transformed from a feudal society into a global power. Its culture blends ancient Shinto and Buddhist traditions with cutting-edge technology. Despite devastation during World War II, Japan emerged as an economic and cultural powerhouse.',
+        periods: [
+            { title: 'Heian Period', dates: '794-1185 CE', description: 'Flourishing of court culture, literature, and classical Japanese arts.' },
+            { title: 'Edo Period', dates: '1603-1868 CE', description: 'Rule of the Tokugawa shogunate, era of isolation and samurai dominance.' },
+            { title: 'Meiji Restoration', dates: '1868-1912 CE', description: 'Rapid modernization, industrialization, and adoption of Western institutions.' }
+        ],
+        facts: [
+            { title: 'Mount Fuji', description: 'Sacred volcano and iconic symbol of Japan.' },
+            { title: 'Samurai & Bushido', description: 'Warrior class bound by a strict code of honor.' },
+            { title: 'Bullet Trains (Shinkansen)', description: 'Pioneers of high-speed rail, introduced in 1964.' }
+        ]
+    },
+    'United States': {
+        region: 'North America',
+        history: 'The United States was founded in 1776 with the Declaration of Independence. Emerging from 13 colonies, it expanded westward and became a global superpower in the 20th century. Known for its democratic ideals, cultural diversity, and technological innovation, the U.S. has played a defining role in world politics, economy, and culture.',
+        periods: [
+            { title: 'Colonial & Revolutionary Era', dates: '1607-1789 CE', description: 'European colonization, American Revolution, and establishment of the Constitution.' },
+            { title: 'Civil War & Reconstruction', dates: '1861-1877 CE', description: 'Conflict over slavery and preservation of the Union.' },
+            { title: '20th Century Superpower', dates: '1945-present', description: 'Global leadership in politics, military, and economy after WWII.' }
+        ],
+        facts: [
+            { title: 'Statue of Liberty', description: 'Gift from France, symbol of freedom and democracy.' },
+            { title: 'Moon Landing', description: 'In 1969, the U.S. became the first nation to land humans on the Moon.' },
+            { title: 'Hollywood', description: 'Global center of film and entertainment industry.' }
+        ]
+    },
+    'Brazil': {
+        region: 'South America',
+        history: 'Brazil, the largest country in South America, was colonized by Portugal in 1500. It became independent in 1822 and has since grown into a culturally rich nation known for its music, festivals, and biodiversity. Brazil played a major role in the Atlantic slave trade, creating a diverse cultural blend of Indigenous, African, and European influences.',
+        periods: [
+            { title: 'Colonial Brazil', dates: '1500-1822 CE', description: 'Portuguese colony focused on sugar, gold, and coffee trade.' },
+            { title: 'Empire of Brazil', dates: '1822-1889 CE', description: 'Constitutional monarchy under Emperor Pedro I and Pedro II.' },
+            { title: 'Republican Era', dates: '1889-present', description: 'Transition to a federal republic and modern development.' }
+        ],
+        facts: [
+            { title: 'Amazon Rainforest', description: 'Largest rainforest in the world, vital for global ecology.' },
+            { title: 'Christ the Redeemer', description: 'Iconic statue overlooking Rio de Janeiro, one of the New Seven Wonders.' },
+            { title: 'Carnival', description: 'World-famous festival with samba parades and vibrant costumes.' }
+        ]
+    },
+    'Spain': {
+        region: 'Southern Europe',
+        history: 'Spain has been a crossroads of civilizations, from the Iberians and Romans to the Moors and Christian kingdoms. It became a global superpower in the 15th and 16th centuries, leading the Age of Exploration with Columbus, Cortés, and Magellan. Spanish culture is a blend of European, Islamic, and American influences, shaping art, language, and religion across the globe.',
+        periods: [
+            { title: 'Al-Andalus (Moorish Spain)', dates: '711-1492 CE', description: 'Period of Islamic rule, flourishing in science, philosophy, and architecture.' },
+            { title: 'Spanish Empire', dates: '1492-1898 CE', description: 'Golden Age of exploration, colonization, and vast overseas empire.' },
+            { title: 'Modern Spain', dates: '20th century-present', description: 'Civil War, Franco dictatorship, and democratic transition.' }
+        ],
+        facts: [
+            { title: 'Alhambra', description: 'Stunning Moorish palace-fortress in Granada.' },
+            { title: 'El Escorial', description: 'Royal monastery and symbol of Spain’s Golden Age.' },
+            { title: 'Flamenco', description: 'Traditional music and dance originating in Andalusia.' }
+        ]
+    },
+    'Turkey': {
+        region: 'Middle East & Europe',
+        history: 'Turkey, historically known as Anatolia, has been the home of great civilizations including the Hittites, Byzantines, and Ottomans. As the heart of the Ottoman Empire, it controlled vast territories across Europe, Asia, and Africa. Modern Turkey emerged under Mustafa Kemal Atatürk in 1923, blending Islamic heritage with secular reforms.',
+        periods: [
+            { title: 'Byzantine Empire', dates: '330-1453 CE', description: 'Eastern Roman Empire with Constantinople as its capital.' },
+            { title: 'Ottoman Empire', dates: '1299-1922 CE', description: 'One of history’s longest-lasting empires, spanning three continents.' },
+            { title: 'Republic of Turkey', dates: '1923-present', description: 'Secular republic founded by Atatürk after the fall of the Ottomans.' }
+        ],
+        facts: [
+            { title: 'Hagia Sophia', description: 'Architectural masterpiece serving as church, mosque, and museum.' },
+            { title: 'Topkapi Palace', description: 'Seat of Ottoman sultans for nearly 400 years.' },
+            { title: 'Göbekli Tepe', description: 'World’s oldest known temple, dating back to 9600 BCE.' }
+        ]
+    },
+    'Russia': {
+        region: 'Eastern Europe & Northern Asia',
+        history: 'Russia is the world’s largest country, with a history shaped by powerful tsars, revolutions, and global influence. From the Kievan Rus and Mongol domination to the mighty Russian Empire and the Soviet Union, Russia has been central in shaping Eurasian and world history. It remains a major political and cultural force.',
+        periods: [
+            { title: 'Kievan Rus', dates: '9th-13th centuries', description: 'Early Slavic state centered in Kyiv, foundation of Russian culture.' },
+            { title: 'Russian Empire', dates: '1721-1917 CE', description: 'Vast empire under the Romanovs, expanding across Eurasia.' },
+            { title: 'Soviet Union', dates: '1922-1991 CE', description: 'Communist superpower that rivaled the U.S. during the Cold War.' }
+        ],
+        facts: [
+            { title: 'Kremlin & Red Square', description: 'Historic political and cultural center of Moscow.' },
+            { title: 'Trans-Siberian Railway', description: 'World’s longest railway, stretching over 9,000 km.' },
+            { title: 'Hermitage Museum', description: 'One of the world’s largest art collections, located in St. Petersburg.' }
+        ]
+    },
+    'South Africa': {
+        region: 'Southern Africa',
+        history: 'South Africa’s history spans ancient San and Bantu cultures, Dutch and British colonization, and the struggle against apartheid. Rich in natural resources, it played a pivotal role in colonial trade. Its modern history is marked by Nelson Mandela and the peaceful transition to democracy in 1994.',
+        periods: [
+            { title: 'Zulu Kingdom', dates: '1816-1897 CE', description: 'Powerful kingdom under Shaka Zulu, known for military innovations.' },
+            { title: 'Apartheid Era', dates: '1948-1994 CE', description: 'System of racial segregation enforced by the government.' },
+            { title: 'Democratic South Africa', dates: '1994-present', description: 'End of apartheid and new era of majority rule.' }
+        ],
+        facts: [
+            { title: 'Table Mountain', description: 'Flat-topped mountain overlooking Cape Town.' },
+            { title: 'Robben Island', description: 'Prison where Nelson Mandela was held for 18 years.' },
+            { title: 'Kruger National Park', description: 'One of Africa’s largest game reserves, home to the Big Five.' }
+        ]
+    },
+    'Iran': {
+        region: 'Middle East',
+        history: 'Iran, historically known as Persia, is one of the world’s oldest continuous civilizations. From the Achaemenid Empire under Cyrus the Great to the Islamic Golden Age and the modern Islamic Republic, Iran has been central in art, science, and politics of the Middle East.',
+        periods: [
+            { title: 'Achaemenid Empire', dates: '550-330 BCE', description: 'First Persian Empire, one of the largest in history.' },
+            { title: 'Safavid Dynasty', dates: '1501-1736 CE', description: 'Era of cultural renaissance and establishment of Shia Islam.' },
+            { title: 'Islamic Republic', dates: '1979-present', description: 'Modern state established after the Iranian Revolution.' }
+        ],
+        facts: [
+            { title: 'Persepolis', description: 'Ruins of the ceremonial capital of the Achaemenid Empire.' },
+            { title: 'Persian Poetry', description: 'World-renowned poets like Rumi and Hafez shaped literature.' },
+            { title: 'Carpet Weaving', description: 'Persian rugs are prized globally for their beauty and craftsmanship.' }
+        ]
+    },
+    'Saudi Arabia': {
+        region: 'Middle East',
+        history: 'Saudi Arabia is the birthplace of Islam, home to the two holiest cities of Mecca and Medina. For centuries, it was inhabited by nomadic tribes and trading communities along desert routes. In the 20th century, the discovery of oil transformed the kingdom into one of the wealthiest nations, central to global energy and Islamic culture.',
+        periods: [
+            { title: 'Pre-Islamic Arabia', dates: 'Before 610 CE', description: 'Era of tribal societies, trade routes, and polytheistic traditions.' },
+            { title: 'Rise of Islam', dates: '610-632 CE', description: 'Prophet Muhammad founded Islam, uniting Arabia under monotheism.' },
+            { title: 'Modern Kingdom', dates: '1932-present', description: 'Unification under Ibn Saud and emergence as an oil-rich global power.' }
+        ],
+        facts: [
+            { title: 'Mecca & Medina', description: 'Islam’s holiest cities and pilgrimage sites for millions annually.' },
+            { title: 'Kaaba', description: 'Sacred cube-shaped structure at the center of Islam’s most important mosque.' },
+            { title: 'Oil Wealth', description: 'Saudi Arabia holds one of the world’s largest proven oil reserves.' }
+        ]
+    },
+    'Ethiopia': {
+        region: 'East Africa',
+        history: 'Ethiopia is one of the world’s oldest nations, with a history tracing back to the ancient Kingdom of Aksum. Unique for never being colonized, it is deeply linked with Christianity and ancient civilizations. Ethiopia played a central role in African independence movements and remains a symbol of resilience.',
+        periods: [
+            { title: 'Kingdom of Aksum', dates: '1st-7th centuries CE', description: 'Powerful trade empire, among the great civilizations of the ancient world.' },
+            { title: 'Solomonic Dynasty', dates: '1270-1974 CE', description: 'Dynasty claiming descent from King Solomon and the Queen of Sheba.' },
+            { title: 'Modern Republic', dates: '1974-present', description: 'End of monarchy and establishment of federal republic.' }
+        ],
+        facts: [
+            { title: 'Lalibela Churches', description: 'Rock-hewn medieval churches, a UNESCO World Heritage site.' },
+            { title: 'Coffee Origin', description: 'Ethiopia is considered the birthplace of coffee.' },
+            { title: 'Battle of Adwa', description: '1896 victory over Italy, securing Ethiopia’s independence.' }
+        ]
+    },
+    'Thailand': {
+        region: 'Southeast Asia',
+        history: 'Thailand, formerly known as Siam, is the only Southeast Asian country never colonized by Europeans. It has a rich history of kingdoms like Sukhothai and Ayutthaya, blending Buddhism, trade, and regional power. Modern Thailand is known for its monarchy, temples, and cultural heritage.',
+        periods: [
+            { title: 'Sukhothai Kingdom', dates: '1238-1438 CE', description: 'Early Thai kingdom, seen as the foundation of Thai culture.' },
+            { title: 'Ayutthaya Kingdom', dates: '1351-1767 CE', description: 'Major regional power with flourishing trade and culture.' },
+            { title: 'Modern Thailand', dates: '1939-present', description: 'Constitutional monarchy, balancing tradition and modernization.' }
+        ],
+        facts: [
+            { title: 'Grand Palace', description: 'Royal palace in Bangkok, centerpiece of Thai heritage.' },
+            { title: 'Buddhist Temples', description: 'Thailand has over 40,000 temples, central to cultural life.' },
+            { title: 'Muay Thai', description: 'Traditional martial art known as the “Art of Eight Limbs.”' }
+        ]
+    },
+    'Korea (South & North)': {
+        region: 'East Asia',
+        history: 'The Korean peninsula has a history of resilience, invasions, and cultural achievements. From the Three Kingdoms to the Joseon dynasty, Korea preserved a unique identity influenced by China yet distinct. After World War II, it was divided into North and South Korea, with vastly different political and economic paths.',
+        periods: [
+            { title: 'Three Kingdoms Period', dates: '57 BCE-668 CE', description: 'Goguryeo, Baekje, and Silla kingdoms shaped Korean identity.' },
+            { title: 'Joseon Dynasty', dates: '1392-1897 CE', description: 'Confucian dynasty lasting over 500 years, cultural golden age.' },
+            { title: 'Modern Division', dates: '1945-present', description: 'Split into South Korea (democratic, developed) and North Korea (communist, isolated).' }
+        ],
+        facts: [
+            { title: 'Hangul', description: 'Unique Korean alphabet created in the 15th century.' },
+            { title: 'DMZ', description: 'Demilitarized zone dividing North and South Korea.' },
+            { title: 'K-Pop & Korean Wave', description: 'Modern cultural influence spreading globally through music and entertainment.' }
+        ]
+    },
+    'Mongolia': {
+        region: 'Central Asia',
+        history: 'Mongolia is best known as the homeland of Genghis Khan, who forged the largest contiguous land empire in history. Traditionally a nomadic society, Mongolia maintained unique steppe traditions. After centuries under Chinese and Soviet influence, it emerged as a democratic republic in the 20th century.',
+        periods: [
+            { title: 'Mongol Empire', dates: '1206-1368 CE', description: 'Vast empire founded by Genghis Khan, stretching across Eurasia.' },
+            { title: 'Qing Dynasty Rule', dates: '1636-1911 CE', description: 'Mongolia under Chinese imperial control.' },
+            { title: 'Modern Mongolia', dates: '1924-present', description: 'From communist republic to democratic transition in 1990.' }
+        ],
+        facts: [
+            { title: 'Gobi Desert', description: 'One of the largest deserts in Asia, rich in fossils.' },
+            { title: 'Naadam Festival', description: 'Celebration of wrestling, horse racing, and archery.' },
+            { title: 'Yurts (Gers)', description: 'Traditional portable round tents of nomadic Mongols.' }
+        ]
+    },
+    'Nigeria': {
+        region: 'West Africa',
+        history: 'Nigeria is Africa’s most populous country and home to some of the continent’s greatest ancient civilizations. From the Nok culture to the Yoruba and Benin kingdoms, it has a rich legacy of art, trade, and governance. In the modern era, Nigeria became a major oil producer and a cultural leader in Africa.',
+        periods: [
+            { title: 'Nok Culture', dates: '1000 BCE-300 CE', description: 'Early West African culture known for terracotta sculptures.' },
+            { title: 'Yoruba & Benin Kingdoms', dates: '11th-19th centuries', description: 'Powerful kingdoms renowned for bronze art and urban centers.' },
+            { title: 'Modern Nigeria', dates: '1960-present', description: 'Independence from Britain and emergence as Africa’s largest economy.' }
+        ],
+        facts: [
+            { title: 'Benin Bronzes', description: 'Masterpieces of African art looted during colonial times.' },
+            { title: 'Nollywood', description: 'One of the world’s largest film industries.' },
+            { title: 'Oil Reserves', description: 'Nigeria is one of the top oil producers in Africa.' }
+        ]
+    },
+    'Mali': {
+        region: 'West Africa',
+        history: 'Mali was once home to some of Africa’s greatest empires, including the Mali and Songhai. It was a center of trade, wealth, and Islamic scholarship. Legendary rulers like Mansa Musa made Mali famous for its gold and cultural achievements.',
+        periods: [
+            { title: 'Mali Empire', dates: '1235-1600 CE', description: 'Wealthy empire famous for trade in gold and salt.' },
+            { title: 'Songhai Empire', dates: '15th-16th centuries', description: 'One of Africa’s largest empires, known for Timbuktu’s scholarship.' },
+            { title: 'Modern Mali', dates: '1960-present', description: 'Independence from France and contemporary challenges.' }
+        ],
+        facts: [
+            { title: 'Timbuktu', description: 'Center of learning with famous libraries and Islamic universities.' },
+            { title: 'Mansa Musa', description: 'Wealthiest ruler in history, his pilgrimage to Mecca showcased Mali’s riches.' },
+            { title: 'Great Mosque of Djenné', description: 'Largest mud-brick building in the world.' }
+        ]
+    },
+    'Ghana': {
+        region: 'West Africa',
+        history: 'Ghana has a rich history of powerful kingdoms and was the first sub-Saharan African country to gain independence from colonial rule in 1957. Historically, it was part of the Ghana, Mali, and Songhai empires, with trade in gold, ivory, and slaves shaping its legacy.',
+        periods: [
+            { title: 'Ancient Ghana Empire', dates: '6th-13th centuries', description: 'Early West African empire controlling gold and salt trade routes.' },
+            { title: 'Ashanti Kingdom', dates: '1670-1902 CE', description: 'Powerful state known for military strength and gold wealth.' },
+            { title: 'Modern Ghana', dates: '1957-present', description: 'First independent African nation led by Kwame Nkrumah.' }
+        ],
+        facts: [
+            { title: 'Cape Coast Castle', description: 'Major site of the Atlantic slave trade.' },
+            { title: 'Kente Cloth', description: 'Traditional woven fabric symbolizing cultural pride.' },
+            { title: 'Gold Coast', description: 'Historical name for Ghana, reflecting its gold abundance.' }
+        ]
+    },
+    'Argentina': {
+        region: 'South America',
+        history: 'Argentina’s history is shaped by indigenous cultures, Spanish colonization, and waves of European immigration. Known for its role in South America’s independence movements, it grew into a major agricultural exporter and cultural hub, famous for tango and football.',
+        periods: [
+            { title: 'Spanish Colonial Period', dates: '16th-19th centuries', description: 'Part of the Spanish Empire with Buenos Aires as a key port.' },
+            { title: 'Independence Era', dates: '1810-1816 CE', description: 'Led by General San Martín, Argentina gained independence.' },
+            { title: 'Modern Argentina', dates: '20th century-present', description: 'Political struggles, Peronism, and cultural global influence.' }
+        ],
+        facts: [
+            { title: 'Patagonia', description: 'Vast southern region with unique landscapes and wildlife.' },
+            { title: 'Tango', description: 'Dance and music style born in Buenos Aires, now world-famous.' },
+            { title: 'Diego Maradona & Messi', description: 'Football legends symbolizing Argentina’s sports pride.' }
+        ]
+    },
+    'Canada': {
+        region: 'North America',
+        history: 'Canada’s history includes Indigenous cultures, French and British colonization, and eventual confederation in 1867. It developed into a bilingual and multicultural society, balancing ties to Britain and its own growing national identity. Rich in resources and cultural diversity, Canada is a global leader in peace and diplomacy.',
+        periods: [
+            { title: 'Indigenous Nations', dates: 'Prehistory-present', description: 'First Nations, Inuit, and Métis peoples with diverse traditions.' },
+            { title: 'French & British Rule', dates: '1534-1867 CE', description: 'Colonial competition shaping Canada’s bilingual identity.' },
+            { title: 'Confederation & Modern Era', dates: '1867-present', description: 'Formation of a federal state and expansion of multicultural identity.' }
+        ],
+        facts: [
+            { title: 'Niagara Falls', description: 'World-famous waterfall straddling Canada and the U.S.' },
+            { title: 'Maple Leaf', description: 'National symbol, central to Canada’s identity.' },
+            { title: 'CN Tower', description: 'Iconic Toronto landmark, once the tallest freestanding structure in the world.' }
+        ]
+    },
+    'Chile': {
+        region: 'South America',
+        history: 'Chile stretches along the Pacific coast of South America, with a diverse history from indigenous Mapuche resistance to Spanish colonization and independence. Known for political struggles in the 20th century, Chile has become one of South America’s most stable nations.',
+        periods: [
+            { title: 'Mapuche Resistance', dates: 'Pre-Columbian-present', description: 'Indigenous Mapuche resisted Inca and Spanish invasions.' },
+            { title: 'Spanish Colonial Period', dates: '1541-1818 CE', description: 'Spanish rule established Santiago as the colonial capital.' },
+            { title: 'Modern Chile', dates: '1818-present', description: 'Independence achieved, later struggles under Pinochet’s dictatorship, followed by democracy.' }
+        ],
+        facts: [
+            { title: 'Atacama Desert', description: 'Driest desert in the world, rich in minerals.' },
+            { title: 'Easter Island (Rapa Nui)', description: 'Remote island famous for its moai statues.' },
+            { title: 'Andes Mountains', description: 'Backbone of Chile with world-class skiing and trekking.' }
+        ]
+    },
+    'Indonesia': {
+        region: 'Southeast Asia',
+        history: 'Indonesia is the world’s largest archipelago nation, historically a hub for spice trade and maritime empires. Influenced by Hindu, Buddhist, and Islamic traditions, it later came under Dutch colonial rule before gaining independence in 1945.',
+        periods: [
+            { title: 'Srivijaya Empire', dates: '7th-13th centuries', description: 'Maritime Buddhist empire dominating regional trade.' },
+            { title: 'Majapahit Empire', dates: '13th-16th centuries', description: 'Hindu-Buddhist empire uniting much of modern Indonesia.' },
+            { title: 'Dutch East Indies & Independence', dates: '1600s-1945 CE', description: 'Colonized by Dutch, later declared independence under Sukarno.' }
+        ],
+        facts: [
+            { title: 'Borobudur & Prambanan', description: 'World’s largest Buddhist and Hindu temple complexes.' },
+            { title: 'Komodo Dragons', description: 'Unique giant reptiles found only in Indonesia.' },
+            { title: 'Spice Islands', description: 'Moluccas were once the global center of spice trade.' }
+        ]
+    },
+    'Vietnam': {
+        region: 'Southeast Asia',
+        history: 'Vietnam has a long history of resisting foreign domination, from Chinese rule to French colonization, and later the Vietnam War. Rich in Confucian and Buddhist traditions, it is now one of Asia’s fastest-growing economies.',
+        periods: [
+            { title: 'Chinese Domination', dates: '111 BCE-938 CE', description: 'Vietnam was under Chinese control for nearly a millennium.' },
+            { title: 'Nguyen Dynasty', dates: '1802-1945 CE', description: 'The last imperial dynasty before French colonization.' },
+            { title: 'Vietnam War & Modern Era', dates: '1955-1975 CE', description: 'Conflict with U.S., followed by reunification and modernization.' }
+        ],
+        facts: [
+            { title: 'Ha Long Bay', description: 'UNESCO site with limestone karsts and islands.' },
+            { title: 'Pho & Coffee', description: 'World-famous cuisine blending local and French influences.' },
+            { title: 'Cu Chi Tunnels', description: 'Vast underground network used during the Vietnam War.' }
+        ]
+    },
+    'Pakistan': {
+        region: 'South Asia',
+        history: 'Pakistan’s history is tied to the Indus Valley Civilization, Islamic empires, and its partition from India in 1947. It has played a central role in South Asian politics, culture, and Islamic scholarship.',
+        periods: [
+            { title: 'Indus Valley Civilization', dates: '3300-1300 BCE', description: 'One of the world’s earliest urban cultures.' },
+            { title: 'Delhi Sultanate & Mughals', dates: '1206-1857 CE', description: 'Islamic dynasties shaping the region’s culture and architecture.' },
+            { title: 'Partition & Modern Pakistan', dates: '1947-present', description: 'Created as a homeland for Muslims of South Asia.' }
+        ],
+        facts: [
+            { title: 'Mohenjo-Daro', description: 'Ruins of one of the earliest urban settlements.' },
+            { title: 'Badshahi Mosque', description: 'One of the largest mosques built under Mughal rule.' },
+            { title: 'K2', description: 'Second-highest mountain in the world, part of the Karakoram range.' }
+        ]
+    },
+    'Kenya': {
+        region: 'East Africa',
+        history: 'Kenya’s history includes early human origins, Swahili trading states, British colonization, and independence in 1963. It is famous for its wildlife, cultural diversity, and role in African politics.',
+        periods: [
+            { title: 'Swahili Coast', dates: '8th-15th centuries', description: 'Trade with Arabs, Persians, and Indians flourished along the coast.' },
+            { title: 'Colonial Rule', dates: '1895-1963 CE', description: 'British control and settler dominance sparked Mau Mau resistance.' },
+            { title: 'Independent Kenya', dates: '1963-present', description: 'Nation led first by Jomo Kenyatta, later growing into East Africa’s hub.' }
+        ],
+        facts: [
+            { title: 'Great Rift Valley', description: 'Important site for human evolution and fossils.' },
+            { title: 'Masai Mara', description: 'World-famous wildlife reserve known for the Great Migration.' },
+            { title: 'Swahili Language', description: 'Widely spoken and official language of East Africa.' }
+        ]
+    },
+    'Morocco': {
+        region: 'North Africa',
+        history: 'Morocco’s history blends Berber, Arab, and Islamic traditions with European influence. Known for its dynasties, trade, and culture, it resisted full colonization until the 20th century and remains a cultural bridge between Africa and Europe.',
+        periods: [
+            { title: 'Almoravid & Almohad Dynasties', dates: '11th-13th centuries', description: 'Islamic empires influencing Spain and North Africa.' },
+            { title: 'Saadian & Alaouite Dynasties', dates: '16th century-present', description: 'Dynasties that expanded Morocco’s influence and still rule today.' },
+            { title: 'French Protectorate & Independence', dates: '1912-1956 CE', description: 'Brief colonial period before reclaiming sovereignty.' }
+        ],
+        facts: [
+            { title: 'Marrakech Medina', description: 'Historic city center with palaces, souks, and mosques.' },
+            { title: 'Sahara Desert', description: 'Vast desert covering southern Morocco.' },
+            { title: 'Cultural Fusion', description: 'Mix of Berber, Arab, and Andalusian influences.' }
+        ]
+    },
+    'Peru': {
+        region: 'South America',
+        history: 'Peru was the heart of the Inca Empire, one of the greatest civilizations of the Americas. Later colonized by Spain, it played a major role in South American independence and is known today for its archaeological wonders and cultural heritage.',
+        periods: [
+            { title: 'Inca Empire', dates: '1438-1533 CE', description: 'Largest empire in pre-Columbian America, centered in Cusco.' },
+            { title: 'Spanish Colonial Period', dates: '1533-1821 CE', description: 'Spanish rule focused on extracting silver and gold.' },
+            { title: 'Independence & Modern Peru', dates: '1821-present', description: 'Led by José de San Martín and Simón Bolívar, Peru became independent.' }
+        ],
+        facts: [
+            { title: 'Machu Picchu', description: 'Iconic Inca citadel and UNESCO site.' },
+            { title: 'Nazca Lines', description: 'Giant geoglyphs carved into desert sands.' },
+            { title: 'Andean Culture', description: 'Traditional Quechua and Aymara heritage continues strongly.' }
+        ]
+    },
+    'Ethiopia': {
+        region: 'East Africa',
+        history: 'Ethiopia is one of the world’s oldest nations, with roots in the Kingdom of Aksum and a unique Christian tradition. It was never fully colonized, resisting Italian invasions, and remains a cultural and historical heart of Africa.',
+        periods: [
+            { title: 'Kingdom of Aksum', dates: '100 CE-940 CE', description: 'Powerful trading empire and early adopter of Christianity.' },
+            { title: 'Solomonic Dynasty', dates: '1270-1974 CE', description: 'Dynasty claiming descent from King Solomon and Queen of Sheba.' },
+            { title: 'Modern Ethiopia', dates: '1974-present', description: 'Monarchy ended, followed by socialist rule and later federal democracy.' }
+        ],
+        facts: [
+            { title: 'Lalibela Churches', description: 'Rock-hewn medieval churches still in use today.' },
+            { title: 'Coffee Origin', description: 'Birthplace of coffee, discovered in the highlands.' },
+            { title: 'Unique Calendar', description: 'Uses its own calendar, about 7 years behind Gregorian.' }
+        ]
+    },
+    'South Africa': {
+        region: 'Southern Africa',
+        history: 'South Africa’s history spans early San and Khoisan peoples, powerful Zulu and Xhosa kingdoms, Dutch and British colonization, apartheid, and its democratic rebirth in 1994 under Nelson Mandela.',
+        periods: [
+            { title: 'Zulu Kingdom', dates: '1816-1897 CE', description: 'Military state under Shaka Zulu, dominating the region.' },
+            { title: 'Colonial & Apartheid Era', dates: '1652-1994 CE', description: 'Dutch and British rule followed by racial segregation system.' },
+            { title: 'Democratic South Africa', dates: '1994-present', description: 'End of apartheid, Mandela becomes first Black president.' }
+        ],
+        facts: [
+            { title: 'Table Mountain', description: 'Iconic flat-topped mountain in Cape Town.' },
+            { title: 'Gold & Diamonds', description: 'Major center for global mining industries.' },
+            { title: 'Big Five Wildlife', description: 'Famous for lion, elephant, buffalo, leopard, and rhino.' }
+        ]
+    },
+    'Saudi Arabia': {
+        region: 'Middle East',
+        history: 'Saudi Arabia is the birthplace of Islam and home to its two holiest cities, Mecca and Medina. Unified as a kingdom in 1932 under Ibn Saud, it became a global power due to its vast oil reserves.',
+        periods: [
+            { title: 'Early Islamic Caliphates', dates: '7th century CE', description: 'Mecca and Medina became centers of Islam under Prophet Muhammad.' },
+            { title: 'Ottoman & Local Rule', dates: '1517-1918 CE', description: 'Controlled by Ottomans with periods of local Saudi rule.' },
+            { title: 'Modern Kingdom', dates: '1932-present', description: 'Founded by Ibn Saud; oil transformed it into a wealthy state.' }
+        ],
+        facts: [
+            { title: 'Hajj Pilgrimage', description: 'Annual journey to Mecca, required for Muslims.' },
+            { title: 'Oil Riches', description: 'World’s leading exporter of crude oil.' },
+            { title: 'Empty Quarter', description: 'Largest continuous sand desert in the world.' }
+        ]
+    },
+    'Thailand': {
+        region: 'Southeast Asia',
+        history: 'Thailand, formerly Siam, is unique in Southeast Asia for never being colonized. Its history includes powerful kingdoms like Sukhothai and Ayutthaya, later modernizing into a constitutional monarchy.',
+        periods: [
+            { title: 'Sukhothai Kingdom', dates: '1238-1438 CE', description: 'First Thai kingdom, considered the cradle of Thai culture.' },
+            { title: 'Ayutthaya Kingdom', dates: '1351-1767 CE', description: 'Powerful state, center of trade and culture until Burmese conquest.' },
+            { title: 'Modern Thailand', dates: '1932-present', description: 'Transitioned from absolute monarchy to constitutional monarchy.' }
+        ],
+        facts: [
+            { title: 'Thai Cuisine', description: 'Globally loved dishes like Pad Thai and Tom Yum.' },
+            { title: 'Buddhist Temples', description: 'Ornate wats are found across the country.' },
+            { title: 'Songkran Festival', description: 'Thai New Year celebrated with water fights.' }
+        ]
+    },
+    'Mexico': {
+        region: 'North America',
+        history: 'Mexico’s history includes advanced civilizations like the Maya and Aztec, Spanish conquest, and a long struggle for independence. Today, it is known for its vibrant culture and heritage blending Indigenous and European traditions.',
+        periods: [
+            { title: 'Maya & Aztec Civilizations', dates: '2000 BCE-1521 CE', description: 'Built great cities, pyramids, and cultural systems.' },
+            { title: 'Spanish Colonial Period', dates: '1521-1821 CE', description: 'New Spain became a vital part of the Spanish Empire.' },
+            { title: 'Independence & Revolution', dates: '1821-1920 CE', description: 'Achieved independence, later revolution reshaped society.' }
+        ],
+        facts: [
+            { title: 'Chichen Itza', description: 'Famous Maya pyramid and UNESCO wonder.' },
+            { title: 'Day of the Dead', description: 'Unique festival celebrating ancestors.' },
+            { title: 'Tequila & Cuisine', description: 'Origin of tequila, tacos, and world-famous food.' }
+        ]
+    },
+    'Cuba': {
+        region: 'Caribbean',
+        history: 'Cuba’s history spans Indigenous Taíno peoples, Spanish colonization, African slavery, and its role in the Cold War after Fidel Castro’s revolution. It remains culturally influential in music and politics.',
+        periods: [
+            { title: 'Spanish Colony', dates: '1492-1898 CE', description: 'Colonized by Spain after Columbus, economy based on sugar and slavery.' },
+            { title: 'Independence & U.S. Influence', dates: '1898-1959 CE', description: 'Gained formal independence but heavily influenced by the U.S.' },
+            { title: 'Cuban Revolution & Present', dates: '1959-present', description: 'Castro’s revolution established a socialist state allied with USSR.' }
+        ],
+        facts: [
+            { title: 'Havana Old Town', description: 'Colonial architecture and vibrant streets.' },
+            { title: 'Cuban Music', description: 'Salsa, mambo, and son have global influence.' },
+            { title: 'Classic Cars', description: '1950s American cars still widely used.' }
+        ]
+    },
+    'Nigeria': {
+        region: 'West Africa',
+        history: 'Nigeria is Africa’s most populous nation, with ancient kingdoms like Benin and Ife, colonial rule by Britain, and independence in 1960. It is diverse with over 250 ethnic groups and rich in oil resources.',
+        periods: [
+            { title: 'Kingdoms of Ife & Benin', dates: '1000-1800 CE', description: 'Renowned for bronze and ivory art, powerful city-states.' },
+            { title: 'Colonial Nigeria', dates: '1861-1960 CE', description: 'British colonization unified diverse regions.' },
+            { title: 'Independent Nigeria', dates: '1960-present', description: 'Became independent, faced civil war and later democracy.' }
+        ],
+        facts: [
+            { title: 'Nollywood', description: 'Second largest film industry in the world.' },
+            { title: 'Oil Exports', description: 'Major global oil producer.' },
+            { title: 'Cultural Diversity', description: 'Home to Hausa, Yoruba, Igbo, and many others.' }
+        ]
+    },
+    'Ghana': {
+        region: 'West Africa',
+        history: 'Ghana was home to ancient gold-rich empires and became the first sub-Saharan African nation to gain independence in 1957, inspiring other African nations.',
+        periods: [
+            { title: 'Ancient Ghana Empire', dates: '300-1200 CE', description: 'Wealthy trading empire based on gold and salt.' },
+            { title: 'Ashanti Kingdom', dates: '1670-1902 CE', description: 'Powerful state with advanced governance and military.' },
+            { title: 'Modern Ghana', dates: '1957-present', description: 'First African country to gain independence from colonial rule.' }
+        ],
+        facts: [
+            { title: 'Kente Cloth', description: 'Colorful handwoven fabric symbolizing heritage.' },
+            { title: 'Cocoa Producer', description: 'One of the world’s top cocoa exporters.' },
+            { title: 'Cape Coast Castle', description: 'Historic site of the Atlantic slave trade.' }
+        ]
+    },
+    'Iran': {
+        region: 'Middle East',
+        history: 'Iran, historically Persia, has one of the world’s oldest civilizations. Known for the Persian Empire, Islamic dynasties, and modern transformations, it remains culturally and geopolitically influential.',
+        periods: [
+            { title: 'Achaemenid Empire', dates: '550-330 BCE', description: 'Founded by Cyrus the Great, stretching from Greece to India.' },
+            { title: 'Safavid Dynasty', dates: '1501-1736 CE', description: 'Established Shi’a Islam as the state religion.' },
+            { title: 'Modern Iran', dates: '1925-present', description: 'From monarchy to Islamic Republic after 1979 revolution.' }
+        ],
+        facts: [
+            { title: 'Persepolis', description: 'Ruins of the ancient Persian capital.' },
+            { title: 'Persian Poetry', description: 'Home to poets like Rumi, Hafez, and Ferdowsi.' },
+            { title: 'Persian Carpets', description: 'Globally prized for beauty and craftsmanship.' }
+        ]
+    },
+    'Turkey': {
+        region: 'Middle East / Europe',
+        history: 'Turkey bridges Europe and Asia, with deep roots in Anatolia, the Byzantine Empire, the Ottoman Empire, and the modern republic founded by Mustafa Kemal Atatürk in 1923.',
+        periods: [
+            { title: 'Byzantine Empire', dates: '330-1453 CE', description: 'Eastern Roman Empire with Constantinople as its capital.' },
+            { title: 'Ottoman Empire', dates: '1299-1922 CE', description: 'Powerful Islamic empire spanning 3 continents.' },
+            { title: 'Republic of Turkey', dates: '1923-present', description: 'Modern secular republic established after WWI.' }
+        ],
+        facts: [
+            { title: 'Hagia Sophia', description: 'Iconic architectural wonder in Istanbul.' },
+            { title: 'Turkish Cuisine', description: 'Kebabs, baklava, and Turkish tea are world favorites.' },
+            { title: 'Cappadocia', description: 'Unique rock formations with cave dwellings and hot air balloons.' }
+        ]
+    },
+    'Brazil': {
+        region: 'South America',
+        history: 'Brazil was inhabited by Indigenous peoples, colonized by Portugal, and later became the largest country in South America. Known for its Amazon rainforest, cultural diversity, and economic power.',
+        periods: [
+            { title: 'Indigenous Civilizations', dates: 'Pre-1500 CE', description: 'Numerous tribes lived in the Amazon and coastal areas.' },
+            { title: 'Portuguese Colony', dates: '1500-1822 CE', description: 'Brazil supplied sugar, coffee, and gold under Portuguese rule.' },
+            { title: 'Empire & Republic', dates: '1822-present', description: 'Independence led to empire, later becoming a republic.' }
+        ],
+        facts: [
+            { title: 'Amazon Rainforest', description: 'Largest rainforest on Earth.' },
+            { title: 'Carnival Festival', description: 'World’s biggest street party with samba parades.' },
+            { title: 'Football Passion', description: 'Five-time FIFA World Cup champions.' }
+        ]
+    },
+    'Argentina': {
+        region: 'South America',
+        history: 'Argentina’s history includes Indigenous peoples, Spanish colonization, independence in 1816, and later political and economic turbulence. It is known for tango, gaucho culture, and its role in world agriculture.',
+        periods: [
+            { title: 'Spanish Colony', dates: '1536-1816 CE', description: 'Part of the Viceroyalty of the Río de la Plata.' },
+            { title: 'Independence & Nationhood', dates: '1816-1880 CE', description: 'Declared independence, developed gaucho culture.' },
+            { title: 'Modern Argentina', dates: '1880-present', description: 'Cycles of prosperity and crisis, democratic governance.' }
+        ],
+        facts: [
+            { title: 'Tango Dance', description: 'Iconic dance and music style born in Buenos Aires.' },
+            { title: 'Patagonia', description: 'Vast landscapes of mountains, glaciers, and plains.' },
+            { title: 'Beef Exports', description: 'Famous for cattle ranching and barbecue (asado).' }
+        ]
+    },
+    'Chile': {
+        region: 'South America',
+        history: 'Chile stretches along South America’s Pacific coast. Its history includes the Mapuche resistance, Spanish conquest, independence in 1818, and modern development. It is known for stability and natural beauty.',
+        periods: [
+            { title: 'Mapuche Resistance', dates: 'Pre-1500s-1880s', description: 'Indigenous Mapuche resisted Spanish and Chilean expansion.' },
+            { title: 'Spanish Colony', dates: '1541-1818 CE', description: 'Founded Santiago and ruled under Spanish crown.' },
+            { title: 'Republic of Chile', dates: '1818-present', description: 'Independent republic with political and economic evolution.' }
+        ],
+        facts: [
+            { title: 'Atacama Desert', description: 'Driest desert in the world.' },
+            { title: 'Easter Island', description: 'Famous moai statues in the Pacific.' },
+            { title: 'Wine Production', description: 'Renowned for world-class vineyards.' }
+        ]
+    },
+    'Kenya': {
+        region: 'East Africa',
+        history: 'Kenya has a rich history of human origins, Swahili coastal trade, and modern independence. It is famous for wildlife safaris and diverse cultures.',
+        periods: [
+            { title: 'Early Humans', dates: 'Prehistoric', description: 'Key discoveries in human evolution made here.' },
+            { title: 'Swahili Coast', dates: '800-1500 CE', description: 'Trade cities like Mombasa linked Africa with Arabia and Asia.' },
+            { title: 'Modern Kenya', dates: '1963-present', description: 'Gained independence from Britain, developed into a republic.' }
+        ],
+        facts: [
+            { title: 'Great Rift Valley', description: 'Geological wonder with lakes and wildlife.' },
+            { title: 'Safari Tourism', description: 'World-famous for Serengeti and Maasai Mara.' },
+            { title: 'Runners', description: 'Produces world-class long-distance athletes.' }
+        ]
+    },
+    'Tanzania': {
+        region: 'East Africa',
+        history: 'Tanzania is home to Mount Kilimanjaro, the Serengeti, and the historic Zanzibar trading hub. It has a mix of cultures and colonial history.',
+        periods: [
+            { title: 'Swahili City-States', dates: '900-1500 CE', description: 'Zanzibar and Kilwa flourished in trade.' },
+            { title: 'Colonial Rule', dates: '1880s-1961 CE', description: 'Ruled by Germany then Britain as Tanganyika.' },
+            { title: 'Union of Tanzania', dates: '1964-present', description: 'Tanganyika merged with Zanzibar to form Tanzania.' }
+        ],
+        facts: [
+            { title: 'Mount Kilimanjaro', description: 'Highest peak in Africa.' },
+            { title: 'Serengeti Migration', description: 'Millions of wildebeest migrate yearly.' },
+            { title: 'Zanzibar', description: 'Historic spice island with Arab influences.' }
+        ]
+    },
+    'Morocco': {
+        region: 'North Africa',
+        history: 'Morocco has been a crossroads of Berber, Arab, and European cultures. It was home to Islamic dynasties, trade routes, and later French and Spanish colonialism.',
+        periods: [
+            { title: 'Berber Dynasties', dates: '700-1600 CE', description: 'Powerful dynasties like Almoravids and Almohads ruled North Africa.' },
+            { title: 'Colonial Era', dates: '1912-1956 CE', description: 'Partitioned between French and Spanish control.' },
+            { title: 'Modern Morocco', dates: '1956-present', description: 'Independent kingdom balancing tradition and modernity.' }
+        ],
+        facts: [
+            { title: 'Sahara Desert', description: 'Part of the vast Sahara lies here.' },
+            { title: 'Medinas', description: 'Historic walled cities like Fez and Marrakech.' },
+            { title: 'Argan Oil', description: 'World-famous beauty and culinary oil.' }
+        ]
+    },
+    'South Africa': {
+        region: 'Southern Africa',
+        history: 'South Africa has ancient San heritage, colonial settlement, gold and diamond discoveries, apartheid segregation, and a peaceful transition to democracy in 1994.',
+        periods: [
+            { title: 'Khoisan & Bantu', dates: 'Prehistoric - 1500 CE', description: 'Indigenous peoples shaped early history.' },
+            { title: 'Colonial & Apartheid', dates: '1652-1994 CE', description: 'Dutch, British rule, and later racial apartheid system.' },
+            { title: 'Democratic Era', dates: '1994-present', description: 'Democracy established under Nelson Mandela.' }
+        ],
+        facts: [
+            { title: 'Table Mountain', description: 'Iconic natural landmark in Cape Town.' },
+            { title: 'Kruger Park', description: 'Famous safari destination.' },
+            { title: 'Diverse Nation', description: 'Called the "Rainbow Nation" with 11 official languages.' }
+        ]
+    },
+
+    // --- Middle East ---
+    'Iraq': {
+        region: 'Middle East',
+        history: 'Iraq, historically Mesopotamia, is the cradle of civilization with ancient Sumer, Babylon, and Assyria. It has seen Islamic empires and modern conflict.',
+        periods: [
+            { title: 'Mesopotamia', dates: '3000-500 BCE', description: 'Birthplace of writing, law, and cities.' },
+            { title: 'Abbasid Caliphate', dates: '750-1258 CE', description: 'Baghdad was a global center of learning.' },
+            { title: 'Modern Iraq', dates: '1920-present', description: 'Created under British mandate, later republic with challenges.' }
+        ],
+        facts: [
+            { title: 'Babylon', description: 'Home of Hanging Gardens (ancient wonder).' },
+            { title: 'Tigris & Euphrates', description: 'Lifelines of Mesopotamian civilizations.' },
+            { title: 'Oil Rich', description: 'Among the largest global oil reserves.' }
+        ]
+    },
+    'Syria': {
+        region: 'Middle East',
+        history: 'Syria is one of the oldest inhabited regions in the world, with ancient cities like Damascus and Aleppo. It has seen empires, colonialism, and modern conflict.',
+        periods: [
+            { title: 'Ancient Syria', dates: '2000-500 BCE', description: 'Home to Arameans and Phoenicians.' },
+            { title: 'Islamic Caliphates', dates: '600-1500 CE', description: 'Damascus was capital of the Umayyad Caliphate.' },
+            { title: 'Modern Syria', dates: '1946-present', description: 'Independent from France, later civil war since 2011.' }
+        ],
+        facts: [
+            { title: 'Damascus', description: 'One of the world’s oldest continuously inhabited cities.' },
+            { title: 'Ebla Tablets', description: 'Important archaeological finds on early writing.' },
+            { title: 'Aleppo Citadel', description: 'Massive medieval fortress.' }
+        ]
+    },
+    'Saudi Arabia': {
+        region: 'Middle East',
+        history: 'Saudi Arabia is the birthplace of Islam and home to Mecca and Medina. Unified in 1932, it became a major oil power and regional leader.',
+        periods: [
+            { title: 'Pre-Islamic Arabia', dates: 'Before 610 CE', description: 'Tribal desert societies.' },
+            { title: 'Rise of Islam', dates: '610-1258 CE', description: 'Prophet Muhammad founded Islam in Mecca and Medina.' },
+            { title: 'Kingdom of Saudi Arabia', dates: '1932-present', description: 'Modern state built under the Al Saud dynasty.' }
+        ],
+        facts: [
+            { title: 'Mecca', description: 'Holies site in Islam, pilgrimage destination (Hajj).' },
+            { title: 'Oil Wealth', description: 'Largest proven oil reserves.' },
+            { title: 'Vision 2030', description: 'Modernization and diversification plan.' }
+        ]
+    },
+    'Israel': {
+        region: 'Middle East',
+        history: 'Israel’s history spans ancient kingdoms of Israel and Judah, Jewish diaspora, and modern establishment in 1948 amidst conflict and innovation.',
+        periods: [
+            { title: 'Ancient Israel', dates: '1000-586 BCE', description: 'Kingdoms of David and Solomon.' },
+            { title: 'Diaspora & Ottoman Rule', dates: '70-1917 CE', description: 'Jewish dispersion, later Ottoman control.' },
+            { title: 'Modern Israel', dates: '1948-present', description: 'Independent state with regional conflicts and high-tech growth.' }
+        ],
+        facts: [
+            { title: 'Jerusalem', description: 'Sacred to Jews, Christians, and Muslims.' },
+            { title: 'Dead Sea', description: 'Lowest point on Earth.' },
+            { title: 'Start-up Nation', description: 'High-tech innovation hub.' }
+        ]
+    },
+
+    // --- South America ---
+    'Colombia': {
+        region: 'South America',
+        history: 'Colombia’s history includes Indigenous civilizations, Spanish conquest, independence with Bolívar, and modern struggles with conflict and culture.',
+        periods: [
+            { title: 'Muisca Confederation', dates: '600-1500 CE', description: 'Famous for gold and "El Dorado" legend.' },
+            { title: 'Spanish Colony', dates: '1538-1810 CE', description: 'Founded Bogotá, exploited resources.' },
+            { title: 'Republic of Colombia', dates: '1810-present', description: 'Independence under Bolívar, modern challenges and growth.' }
+        ],
+        facts: [
+            { title: 'Coffee', description: 'Renowned for premium coffee production.' },
+            { title: 'Shakira & Music', description: 'Global music stars hail from Colombia.' },
+            { title: 'Biodiversity', description: 'Second most biodiverse country in the world.' }
+        ]
+    },
+    'Peru': {
+        region: 'South America',
+        history: 'Peru is home to the ancient Inca Empire and Spanish colonial heritage. It blends Indigenous culture with modern identity.',
+        periods: [
+            { title: 'Inca Empire', dates: '1438-1533 CE', description: 'Largest empire in pre-Columbian America.' },
+            { title: 'Spanish Conquest', dates: '1533-1821 CE', description: 'Colonial center in Lima.' },
+            { title: 'Modern Peru', dates: '1821-present', description: 'Independent republic, balancing heritage and progress.' }
+        ],
+        facts: [
+            { title: 'Machu Picchu', description: 'World-famous Inca citadel.' },
+            { title: 'Potatoes & Corn', description: 'Origin of many staple crops.' },
+            { title: 'Nazca Lines', description: 'Mysterious desert geoglyphs.' }
+        ]
+    },
+    'Venezuela': {
+        region: 'South America',
+        history: 'Venezuela has Indigenous roots, Spanish colonization, independence under Bolívar, oil wealth, and recent crises.',
+        periods: [
+            { title: 'Indigenous Peoples', dates: 'Pre-1500 CE', description: 'Carib and Arawak tribes lived here.' },
+            { title: 'Spanish Rule', dates: '1522-1811 CE', description: 'Colonial exploitation of resources.' },
+            { title: 'Republic of Venezuela', dates: '1811-present', description: 'Independence and later oil-based economy.' }
+        ],
+        facts: [
+            { title: 'Angel Falls', description: 'World’s highest waterfall.' },
+            { title: 'Oil Reserves', description: 'One of the world’s largest proven reserves.' },
+            { title: 'Arepas', description: 'Traditional cornmeal dish.' }
+        ]
+    },
+    'United Kingdom': {
+        region: 'Western Europe',
+        history: 'The United Kingdom, consisting of England, Scotland, Wales, and Northern Ireland, has been central to world history. From the medieval monarchy to the British Empire, which once spanned a quarter of the globe, the UK shaped global trade, law, science, and culture. Today, it remains influential in politics, finance, and the arts.',
+        periods: [
+            { title: 'Medieval England', dates: '1066-1485 CE', description: 'Norman conquest, Magna Carta, and the rise of Parliament.' },
+            { title: 'British Empire', dates: '16th-20th centuries', description: 'Expansion into the largest empire in history, influencing every continent.' },
+            { title: 'Modern UK', dates: '20th century-present', description: 'Decolonization, World Wars, and contemporary parliamentary democracy.' }
+        ],
+        facts: [
+            { title: 'Stonehenge', description: 'Prehistoric monument of standing stones, purpose still debated.' },
+            { title: 'Big Ben', description: 'World-famous clock tower in London.' },
+            { title: 'Shakespeare', description: 'Playwright whose works shaped English literature.' }
+        ]
+    },
+    'Germany': {
+        region: 'Central Europe',
+        history: 'Germany’s history spans the Holy Roman Empire, the unification in 1871, two World Wars, and eventual reunification in 1990. It has been at the heart of European politics, science, and culture, producing influential thinkers, composers, and inventors. Today, Germany is a leading economy and the most populous country in the European Union.',
+        periods: [
+            { title: 'Holy Roman Empire', dates: '962-1806 CE', description: 'Loose confederation of Central European states under imperial authority.' },
+            { title: 'German Empire', dates: '1871-1918 CE', description: 'Unification under Bismarck and rise as a world power.' },
+            { title: 'Cold War Division & Reunification', dates: '1945-1990 CE', description: 'Split into East and West Germany, reunified after the fall of the Berlin Wall.' }
+        ],
+        facts: [
+            { title: 'Berlin Wall', description: 'Cold War symbol that divided East and West Berlin until 1989.' },
+            { title: 'Oktoberfest', description: 'World’s largest beer festival held annually in Munich.' },
+            { title: 'Neuschwanstein Castle', description: 'Fairy-tale castle that inspired Disney’s Sleeping Beauty castle.' }
+        ]
+    },
+            'Mexico': {
+                region: 'North America',
+                history: 'Mexico is the cradle of several major Mesoamerican civilizations, including the Olmec, Maya, and Aztec empires. These cultures developed sophisticated writing systems, astronomical knowledge, and monumental architecture. The Spanish conquest in 1521 created a colonial society that blended indigenous, European, and African influences, resulting in the rich cultural heritage that defines modern Mexico.',
+                periods: [
+                    { title: 'Olmec Civilization', dates: '1500-400 BCE', description: 'Earliest major Mesoamerican civilization, created colossal stone heads.' },
+                    { title: 'Maya Classical Period', dates: '250-900 CE', description: 'Peak of Maya civilization with advances in astronomy, mathematics, and writing.' },
+                    { title: 'Aztec Empire', dates: '1345-1521 CE', description: 'Powerful empire centered in Tenochtitlan, conquered by Spanish conquistadors.' }
+                ],
+                facts: [
+                    { title: 'Chichen Itza', description: 'Maya archaeological site featuring the famous El Castillo pyramid.' },
+                    { title: 'Teotihuacan', description: 'Ancient Mesoamerican city with massive Pyramid of the Sun and Moon.' },
+                    { title: 'Palenque', description: 'Maya city-state known for elaborate architecture and hieroglyphic inscriptions.' }
+                ]
+            }
+        };
+
+        // Function to show loading
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+            }, 800);
+        }
+
+        // Function to open side panel with country data
+        function openSidePanel(countryName) {
+            showLoading();
+            
+            setTimeout(() => {
+                const data = countryData[countryName];
+                if (data) {
+                    document.getElementById('countryName').textContent = countryName;
+                    document.getElementById('countryRegion').textContent = data.region;
+                    document.getElementById('historicalContent').textContent = data.history;
+                    
+                    // Populate periods
+                    const periodsGrid = document.getElementById('periodsGrid');
+                    periodsGrid.innerHTML = '';
+                    data.periods.forEach(period => {
+                        const periodCard = document.createElement('div');
+                        periodCard.className = 'period-card';
+                        periodCard.innerHTML = `
+                            <div class="period-title">${period.title}</div>
+                            <div class="period-dates">${period.dates}</div>
+                            <div class="period-description">${period.description}</div>
+                        `;
+                        periodsGrid.appendChild(periodCard);
+                    });
+                    
+                    // Populate facts
+                    const factsGrid = document.getElementById('factsGrid');
+                    factsGrid.innerHTML = '';
+                    data.facts.forEach(fact => {
+                        const factCard = document.createElement('div');
+                        factCard.className = 'fact-card';
+                        factCard.innerHTML = `
+                            <div class="fact-title">${fact.title}</div>
+                            <div class="fact-description">${fact.description}</div>
+                        `;
+                        factsGrid.appendChild(factCard);
+                    });
+                }
+                
+                document.getElementById('sidePanel').classList.add('active');
+            }, 800);
+        }
+
+        // Function to close side panel
+        function closeSidePanel() {
+            document.getElementById('sidePanel').classList.remove('active');
+        }
+
+        // Add click event to map
+        map.on('click', function(e) {
+            // Simple country detection based on coordinates (approximated)
+          const countries = [
+  { name: 'Egypt', bounds: [[22.0, 25.0], [32.0, 35.0]] },
+  { name: 'Greece', bounds: [[34.8, 19.3], [41.7, 29.6]] },
+  { name: 'Italy', bounds: [[36.6, 6.6], [47.1, 18.5]] },
+  { name: 'China', bounds: [[18.0, 73.0], [54.0, 135.0]] },
+  { name: 'India', bounds: [[6.0, 68.0], [35.0, 97.0]] },
+  { name: 'Peru', bounds: [[-18.3, -81.3], [0.0, -68.7]] },
+  { name: 'France', bounds: [[41.3, -5.1], [51.1, 9.6]] },
+  { name: 'Mexico', bounds: [[14.5, -118.4], [32.7, -86.7]] },
+  
+  // Additional countries:
+  { name: 'Nigeria', bounds: [[4.0, 2.0], [14.0, 14.0]] },
+  { name: 'Ghana', bounds: [[4.5, -3.3], [11.2, 1.2]] },
+  { name: 'Mali', bounds: [[10.0, -12.0], [25.0, 5.0]] },
+  { name: 'Argentina', bounds: [[-55.0, -73.5], [-21.5, -53.5]] },
+  { name: 'Brazil', bounds: [[-34.0, -74.0], [5.0, -34.0]] },
+  { name: 'United Kingdom', bounds: [[49.5, -8.5], [58.7, 1.8]] },
+  { name: 'Germany', bounds: [[47.3, 5.9], [55.1, 15.0]] },
+  { name: 'Spain', bounds: [[36.0, -9.5], [43.8, 3.3]] },
+  { name: 'Turkey', bounds: [[36.0, 26.0], [42.0, 45.0]] },
+  { name: 'Russia', bounds: [[41.2, 19.6], [82.0, 169.0]] },
+  { name: 'South Africa', bounds: [[-35.0, 16.0], [-22.0, 33.0]] },
+  { name: 'Ethiopia', bounds: [[3.0, 32.9], [15.0, 48.0]] },
+  { name: 'Thailand', bounds: [[5.5, 97.5], [20.5, 105.5]] },
+  { name: 'Indonesia', bounds: [[-11.0, 95.0], [6.0, 141.0]] },
+  { name: 'Vietnam', bounds: [[8.0, 102.0], [23.5, 110.5]] },
+  { name: 'Pakistan', bounds: [[23.5, 60.5], [37.0, 77.0]] },
+  { name: 'Kenya', bounds: [[-4.8, 33.9], [5.0, 41.9]] },
+  { name: 'Morocco', bounds: [[21.3, -17.1], [35.9, -0.9]] },
+  { name: 'Iraq', bounds: [[29.1, 38.8], [37.4, 48.6]] },
+  { name: 'Syria', bounds: [[32.3, 35.6], [37.3, 42.4]] },
+  { name: 'Israel', bounds: [[29.4, 34.3], [33.3, 35.9]] },
+  { name: 'Colombia', bounds: [[-4.2, -79.0], [12.5, -66.8]] },
+  { name: 'Venezuela', bounds: [[0.6, -73.3], [12.2, -59.8]] },
+  { name: 'Canada', bounds: [[41.7, -141.0], [83.1, -52.6]] },
+  { name: 'Cuba', bounds: [[19.6, -85.2], [23.5, -74.1]] }
+];
+
+            
+            const clickedLat = e.latlng.lat;
+            const clickedLng = e.latlng.lng;
+            
+            for (let country of countries) {
+                const [[minLat, minLng], [maxLat, maxLng]] = country.bounds;
+                if (clickedLat >= minLat && clickedLat <= maxLat && 
+                    clickedLng >= minLng && clickedLng <= maxLng) {
+                    openSidePanel(country.name);
+                    
+                    // Add a popup
+                    L.popup()
+                        .setLatLng(e.latlng)
+                        .setContent(`<strong>${country.name}</strong><br>Click to explore history`)
+                        .openOn(map);
+                    
+                    return;
+                }
+            }
+            
+            // If no country matched, show general popup
+            L.popup()
+                .setLatLng(e.latlng)
+                .setContent('Select a highlighted region to explore its history')
+                .openOn(map);
+        });
+
+      // Add markers for featured countries
+const countryMarkers = [
+    { name: 'Egypt', coords: [26, 30], icon: '🏺' },
+    { name: 'Greece', coords: [39, 22], icon: '🏛️' },
+    { name: 'Italy', coords: [42, 13], icon: '🏟️' },
+    { name: 'China', coords: [35, 104], icon: '🏯' },
+    { name: 'India', coords: [20, 77], icon: '🕌' },
+    { name: 'Peru', coords: [-9.2, -75], icon: '⛰️' },
+    { name: 'France', coords: [46.2, 2.2], icon: '🗼' },
+    { name: 'Mexico', coords: [23, -102], icon: '🏜️' },
+
+    // Additional countries
+    { name: 'Nigeria', coords: [9, 8], icon: '🪘' },
+    { name: 'Ghana', coords: [7.9, -1.0], icon: '🥁' },
+    { name: 'Mali', coords: [17, -4], icon: '🏜️' },
+    { name: 'Argentina', coords: [-38.4, -63.6], icon: '🥩' },
+    { name: 'Brazil', coords: [-14, -51], icon: '🌴' },
+    { name: 'United Kingdom', coords: [54, -2], icon: '👑' },
+    { name: 'Germany', coords: [51, 10], icon: '🍺' },
+    { name: 'Spain', coords: [40, -4], icon: '🍷' },
+    { name: 'Turkey', coords: [39, 35], icon: '🕌' },
+    { name: 'Russia', coords: [61, 105], icon: '❄️' },
+    { name: 'South Africa', coords: [-30, 25], icon: '🦁' },
+    { name: 'Ethiopia', coords: [9, 39], icon: '☕' },
+    { name: 'Thailand', coords: [15, 101], icon: '🍜' },
+    { name: 'Indonesia', coords: [-2, 118], icon: '🌋' },
+    { name: 'Vietnam', coords: [16, 108], icon: '🌿' },
+    { name: 'Pakistan', coords: [30, 70], icon: '🕌' },
+    { name: 'Kenya', coords: [0, 37], icon: '🦒' },
+    { name: 'Morocco', coords: [32, -6], icon: '🕌' },
+    { name: 'Iraq', coords: [33, 44], icon: '🏺' },
+    { name: 'Syria', coords: [35, 38], icon: '🏛️' },
+    { name: 'Israel', coords: [31.5, 35], icon: '✡️' },
+    { name: 'Colombia', coords: [4.5, -74], icon: '☕' },
+    { name: 'Venezuela', coords: [7, -66], icon: '🛢️' },
+    { name: 'Canada', coords: [56, -106], icon: '🍁' },
+    { name: 'Cuba', coords: [21.5, -80], icon: '🎶' }
+];
+
+
+        // Create custom markers for each country
+        countryMarkers.forEach(country => {
+            const customIcon = L.divIcon({
+                html: `<div style="
+                    background: linear-gradient(135deg, #daa520, #b8860b);
+                    border: 2px solid #1a1a1a;
+                    border-radius: 50%;
+                    width: 40px;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 18px;
+                    box-shadow: 0 4px 12px rgba(218, 165, 32, 0.4);
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.transform='scale(1.2)'" 
+                   onmouseout="this.style.transform='scale(1)'">${country.icon}</div>`,
+                className: 'custom-marker',
+                iconSize: [40, 40],
+                iconAnchor: [20, 20]
+            });
+
+            const marker = L.marker(country.coords, { icon: customIcon })
+                .addTo(map)
+                .on('click', () => {
+                    openSidePanel(country.name);
+                });
+
+            // Add tooltip
+            marker.bindTooltip(country.name, {
+                permanent: false,
+                direction: 'top',
+                className: 'custom-tooltip'
+            });
+        });
+
+        // Custom CSS for tooltips
+        const style = document.createElement('style');
+        style.textContent = `
+            .custom-tooltip {
+                background: linear-gradient(135deg, #1a1a1a, #2d2d2d) !important;
+                border: 2px solid #daa520 !important;
+                border-radius: 8px !important;
+                color: #f5f5f5 !important;
+                font-family: 'Crimson Text', serif !important;
+                font-size: 14px !important;
+                padding: 8px 12px !important;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+            }
+            
+            .custom-tooltip::before {
+                border-top-color: #daa520 !important;
+            }
+            
+            .custom-marker:hover {
+                animation: pulse 1s infinite;
+            }
+            
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.1); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Close panel when clicking outside
+        document.addEventListener('click', function(e) {
+            const sidePanel = document.getElementById('sidePanel');
+            const isClickInsidePanel = sidePanel.contains(e.target);
+            const isMapClick = e.target.closest('#map');
+            
+            if (!isClickInsidePanel && !isMapClick && sidePanel.classList.contains('active')) {
+                closeSidePanel();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeSidePanel();
+            }
+        });
+
+        // Add some visual flair - animated borders around map
+        const mapContainer = document.querySelector('.map-container');
+        setInterval(() => {
+            mapContainer.style.boxShadow = `0 8px 32px rgba(218, 165, 32, ${0.2 + Math.sin(Date.now() / 1000) * 0.1})`;
+        }, 100);
+
+        // Initialize with a welcome message
+        setTimeout(() => {
+            if (window.innerWidth > 768) {
+                const welcomePopup = L.popup()
+                    .setLatLng([20, 0])
+                    .setContent(`
+                        <div style="text-align: center; padding: 10px;">
+                            <strong style="color: #daa520;">Welcome to World History Explorer!</strong><br>
+                            <span style="font-size: 0.9em;">Click on any golden marker or country to begin your journey through time.</span>
+                        </div>
+                    `)
+                    .openOn(map);
+                
+                setTimeout(() => {
+                    map.closePopup();
+                }, 4000);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
