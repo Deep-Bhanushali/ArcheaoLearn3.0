@@ -21,7 +21,7 @@ import Signup from "./Signup";
 import Success from "./Success";
 import Cancel from "./Cancel";
 import ProfilePage from "./ProfilePage";
-import PrehistoricEra from "./PrehistoricEra";
+import PrehistoricEra from "./PreHistoricEra";
 import AncientEra from "./AncientEra";
 import ClassicalEra from "./ClassicalEra";
 import MedievalEra from "./MedievalEra";
