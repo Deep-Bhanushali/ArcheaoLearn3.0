@@ -27,7 +27,7 @@ const ARSection = () => {
           <button className="cta-ar-button">Try Artifact Recognition</button>
         </div>
         <div className="ar-image">
-          <img src="\images\artifact-recognition.jpg" alt="Artifact Recognition" />
+          <img src="\images\artifact_recognition.jpg" alt="Artifact Recognition" />
         </div>
       </div>
     </section>
