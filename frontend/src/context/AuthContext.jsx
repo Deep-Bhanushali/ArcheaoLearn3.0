@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import { buildApiUrl } from "../utils/api";
 
 export const AuthContext = createContext();
 
@@ -20,7 +21,7 @@ const AuthProvider = ({ children }) => {
 
   const fetchUserProfile = async (token) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:4242'}/profile`, {
+      const response = await fetch(buildApiUrl('/profile'), {
         headers: {
           "Authorization": `Bearer ${token}`
         }
@@ -66,7 +67,7 @@ const AuthProvider = ({ children }) => {
   const updateUserRole = async (newRole) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:4242'}/update-role`, {
+      const response = await fetch(buildApiUrl('/update-role'), {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

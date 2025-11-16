@@ -186,15 +186,7 @@ const Features = () => {
         </button>
       </div>
       
-      <div className="carousel-dots">
-        {featureData.map((_, index) => (
-          <button
-            key={index}
-            className={`carousel-dot ${index === currentIndex ? 'active' : ''}`}
-            onClick={() => setCurrentIndex(index)}
-          />
-        ))}
-      </div>
+
     </section>
   );
 };
