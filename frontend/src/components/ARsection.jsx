@@ -1,19 +1,12 @@
-import { useNavigate } from 'react-router-dom';
 import '../styles/ARsection.css';
 
 const ARSection = () => {
-  const navigate = useNavigate();
-
   const arFeatures = [
     "Upload images of artifacts for instant identification",
     "Get detailed historical and cultural information about artifacts",
     "Advanced AI-powered recognition with high accuracy",
     "Explore artifact origins, materials, and historical significance"
   ];
-
-  const handleArtifactRecognitionClick = () => {
-    navigate('/artifact');
-  };
 
   return (
     <section className="ar-section">
@@ -31,7 +24,7 @@ const ARSection = () => {
             ))}
           </ul>
 
-          <button className="cta-ar-button" onClick={handleArtifactRecognitionClick}>Try Artifact Recognition</button>
+          <button className="cta-ar-button">Try Artifact Recognition</button>
         </div>
         <div className="ar-image">
           <img src="\images\artifact_recognition.jpg" alt="Artifact Recognition" />

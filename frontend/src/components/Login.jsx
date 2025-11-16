@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { buildApiUrl } from "../utils/api";
 import toast from 'react-hot-toast';
 import '../styles/Login.css';
 
@@ -16,9 +15,9 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     try {
-      const res = await fetch(buildApiUrl('/login'), {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:4242'}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
