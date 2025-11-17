@@ -374,16 +374,32 @@ app.post('/signup', async (req, res) => {
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
+    console.log('Login attempt for email:', email);
+
     try {
+        // Check if JWT_SECRET is set
+        if (!process.env.JWT_SECRET) {
+            console.error('JWT_SECRET environment variable is not set');
+            return res.status(500).json({ message: "Server configuration error" });
+        }
+
         const user = await User.findOne({ email });
-        if (!user) return res.status(400).json({ message: "User not found" });
+        if (!user) {
+            console.log('User not found for email:', email);
+            return res.status(400).json({ message: "User not found" });
+        }
 
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
+        if (!isMatch) {
+            console.log('Invalid password for user:', email);
+            return res.status(400).json({ message: "Invalid credentials" });
+        }
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+        console.log('Login successful for user:', email);
         res.json({ message: "Login successful", token });
     } catch (error) {
+        console.error('Login error for email', email, ':', error);
         res.status(500).json({ message: "Server Error" });
     }
 });
